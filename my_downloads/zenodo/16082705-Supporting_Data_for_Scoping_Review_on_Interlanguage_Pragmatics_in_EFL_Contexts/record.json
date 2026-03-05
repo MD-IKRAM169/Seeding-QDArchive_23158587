@@ -1,0 +1,148 @@
+{
+  "created": "2025-07-18T08:38:36.474735+00:00",
+  "modified": "2025-07-18T08:38:36.805532+00:00",
+  "id": 16082705,
+  "conceptrecid": "16082704",
+  "doi": "10.5281/zenodo.16082705",
+  "conceptdoi": "10.5281/zenodo.16082704",
+  "doi_url": "https://doi.org/10.5281/zenodo.16082705",
+  "metadata": {
+    "title": "Supporting Data for Scoping Review on Interlanguage Pragmatics in EFL Contexts",
+    "doi": "10.5281/zenodo.16082705",
+    "publication_date": "2025-07-18",
+    "description": "<p>This dataset contains coded data (QDPX), article summary (Word), and year-theme matrix (Excel) used in the scoping review.</p>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "Huaqiang, Li",
+        "affiliation": null
+      }
+    ],
+    "keywords": [
+      "interlanguage pragmatics, EFL learners, scoping review"
+    ],
+    "dates": [
+      {
+        "type": "collected"
+      }
+    ],
+    "version": "v1.0",
+    "language": "eng",
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "journal": {
+      "title": "Plos one"
+    },
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "relations": {
+      "version": [
+        {
+          "index": 0,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "16082704"
+          }
+        }
+      ]
+    }
+  },
+  "title": "Supporting Data for Scoping Review on Interlanguage Pragmatics in EFL Contexts",
+  "links": {
+    "self": "https://zenodo.org/api/records/16082705",
+    "self_html": "https://zenodo.org/records/16082705",
+    "preview_html": "https://zenodo.org/records/16082705?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.16082705",
+    "self_doi": "https://doi.org/10.5281/zenodo.16082705",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16082705",
+    "reserve_doi": "https://zenodo.org/api/records/16082705/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/16082704",
+    "parent_html": "https://zenodo.org/records/16082704",
+    "parent_doi": "https://doi.org/10.5281/zenodo.16082704",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16082704",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16082705/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16082705/sequence/default",
+    "files": "https://zenodo.org/api/records/16082705/files",
+    "media_files": "https://zenodo.org/api/records/16082705/media-files",
+    "archive": "https://zenodo.org/api/records/16082705/files-archive",
+    "archive_media": "https://zenodo.org/api/records/16082705/media-files-archive",
+    "latest": "https://zenodo.org/api/records/16082705/versions/latest",
+    "latest_html": "https://zenodo.org/records/16082705/latest",
+    "versions": "https://zenodo.org/api/records/16082705/versions",
+    "draft": "https://zenodo.org/api/records/16082705/draft",
+    "access_links": "https://zenodo.org/api/records/16082705/access/links",
+    "access_grants": "https://zenodo.org/api/records/16082705/access/grants",
+    "access_users": "https://zenodo.org/api/records/16082705/access/users",
+    "access_request": "https://zenodo.org/api/records/16082705/access/request",
+    "access": "https://zenodo.org/api/records/16082705/access",
+    "communities": "https://zenodo.org/api/records/16082705/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/16082705/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/16082705/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/16082705/file-modification",
+    "requests": "https://zenodo.org/api/records/16082705/requests"
+  },
+  "updated": "2025-07-18T08:38:36.805532+00:00",
+  "recid": "16082705",
+  "revision": 4,
+  "files": [
+    {
+      "id": "d3a86d27-9a32-414e-b505-eeb9a40d4677",
+      "key": "EFL_ILP_ScopingReview_CodedData_20250718.qdpx",
+      "size": 70748772,
+      "checksum": "md5:a3984adebd752ada6e289c5698b7ffdf",
+      "links": {
+        "self": "https://zenodo.org/api/records/16082705/files/EFL_ILP_ScopingReview_CodedData_20250718.qdpx/content"
+      }
+    },
+    {
+      "id": "66c8987d-42a6-4995-8f26-31a6f6bfec53",
+      "key": "Theme_year.xlsx",
+      "size": 19364,
+      "checksum": "md5:082bb24657b747327545004dc4c0bdf7",
+      "links": {
+        "self": "https://zenodo.org/api/records/16082705/files/Theme_year.xlsx/content"
+      }
+    },
+    {
+      "id": "457558f6-66ff-4fc3-88f3-c69dceb6ff08",
+      "key": "S2_Table. Data Charting and CCAT Scores of 56 Articles.docx",
+      "size": 55604,
+      "checksum": "md5:6d6083f9b1a2ac5de7050ade10925fcf",
+      "links": {
+        "self": "https://zenodo.org/api/records/16082705/files/S2_Table. Data Charting and CCAT Scores of 56 Articles.docx/content"
+      }
+    },
+    {
+      "id": "8dc30ee0-1308-49ec-ae8e-3db58f911a17",
+      "key": "Country_Article counts.xlsx",
+      "size": 17460,
+      "checksum": "md5:c80700711b64e93863401f76e75df26e",
+      "links": {
+        "self": "https://zenodo.org/api/records/16082705/files/Country_Article counts.xlsx/content"
+      }
+    }
+  ],
+  "swh": null,
+  "owners": [
+    {
+      "id": "1355137"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 192,
+    "unique_downloads": 114,
+    "views": 70,
+    "unique_views": 50,
+    "version_downloads": 192,
+    "version_unique_downloads": 114,
+    "version_unique_views": 50,
+    "version_views": 70
+  },
+  "state": "done",
+  "submitted": true
+}
