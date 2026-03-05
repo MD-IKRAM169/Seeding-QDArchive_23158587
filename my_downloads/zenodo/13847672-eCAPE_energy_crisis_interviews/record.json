@@ -1,0 +1,183 @@
+{
+  "created": "2024-10-01T08:36:05.197931+00:00",
+  "modified": "2024-10-01T08:36:05.535488+00:00",
+  "id": 13847672,
+  "conceptrecid": "13847671",
+  "doi": "10.5281/zenodo.13847672",
+  "conceptdoi": "10.5281/zenodo.13847671",
+  "doi_url": "https://doi.org/10.5281/zenodo.13847672",
+  "metadata": {
+    "title": "eCAPE energy crisis interviews",
+    "doi": "10.5281/zenodo.13847672",
+    "publication_date": "2024-10-01",
+    "description": "<p>This dataset contains transcripts from 30 semi-structured qualitative interviews, conducted as part of a sub-project to the research project eCAPE (New Energy Consumer Roles and Technologies &ndash; Actors, Practices and Equality), running from 2018-2024. eCAPE is financed by the European Research Council (ERC) under the European Union&acute;s Horizon 2020 research and innovation program (grant agreement number 786643). The project is led by Professor Kirsten Gram-Hanssen from Department of the Built Environment, Aalborg University.</p>\n<p>This sub-project examined how Danish households handled the energy crisis and what changes in their heating and other energy practices the crisis led to. The interviews were conducted in 2022-23 and different types of households were interviewed about their everyday life during the crisis. The interviews were conducted by Kirsten Gram-Hanssen, Line Valdorff Madsen and Line Kryger Aagaard from Department of the Built Environment, Aalborg University. Interviews were transcribed by student assistants. The interviews were coded and analysed in Nvivo by Kirsten Gram-Hanssen, Line Valdorff Madsen and Rikke Skovgaard Nielsen. The recruitment process and interview method are further described in the related peer-reviewed publications.</p>\n<p>All names are removed in transcripts and participants&rsquo; age, occupation and other personal data have in some cases been altered and in some cases paragraphs have been removed, all to ensure anonymity. Alterations are marked with brackets, where anoymised words or sections are indicated with [anonymised].</p>\n<p>Participants received written and oral information on the research purpose and handling of their personal data and gave their written or oral consent to participate. The interviews were conducted in the participants&rsquo; homes, except for two telephone interviews and one interview conducted in a language school which the participant attended. Photos were taken during the interviews with participants&rsquo; consent, but these photos are not published in the dataset due to the protection of the anonymity of participants. Apart from the interview transcripts this dataset contains the interview guide (Danish and English version).</p>",
+    "access_right": "open",
+    "creators": [
+      {
+        "name": "Gram-Hanssen, Kirsten",
+        "affiliation": "Aalborg University",
+        "orcid": "0000-0002-8543-2501"
+      },
+      {
+        "name": "Madsen, Line Valdorff",
+        "affiliation": "Aalborg University",
+        "orcid": "0000-0003-0861-0041"
+      },
+      {
+        "name": "Nielsen, Rikke Skovgaard",
+        "affiliation": "Aalborg University"
+      },
+      {
+        "name": "Aagaard, Line Kryger",
+        "affiliation": "Aalborg University",
+        "orcid": "0000-0003-2701-1335"
+      }
+    ],
+    "keywords": [
+      "energy consumption",
+      "energy crisis",
+      "households",
+      "everyday life",
+      "social practices",
+      "comfort",
+      "care",
+      "ethical consumption",
+      "energy vulnerability",
+      "flexible consumption"
+    ],
+    "language": "dan",
+    "resource_type": {
+      "title": "Dataset",
+      "type": "dataset"
+    },
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "grants": [
+      {
+        "code": "786643",
+        "internal_id": "10.13039/501100000780::786643",
+        "funder": {
+          "name": "European Commission",
+          "doi": "10.13039/501100000780",
+          "acronym": "EC"
+        },
+        "title": "New energy Consumer roles and smart technologies \u2013 Actors, Practices and Equality",
+        "acronym": "eCAPE",
+        "program": "H2020-EU.1.1.",
+        "url": "https://cordis.europa.eu/projects/786643"
+      }
+    ],
+    "communities": [
+      {
+        "id": "eu"
+      }
+    ],
+    "relations": {
+      "version": [
+        {
+          "index": 0,
+          "is_last": true,
+          "parent": {
+            "pid_type": "recid",
+            "pid_value": "13847671"
+          }
+        }
+      ]
+    }
+  },
+  "title": "eCAPE energy crisis interviews",
+  "links": {
+    "self": "https://zenodo.org/api/records/13847672",
+    "self_html": "https://zenodo.org/records/13847672",
+    "preview_html": "https://zenodo.org/records/13847672?preview=1",
+    "doi": "https://doi.org/10.5281/zenodo.13847672",
+    "self_doi": "https://doi.org/10.5281/zenodo.13847672",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13847672",
+    "reserve_doi": "https://zenodo.org/api/records/13847672/draft/pids/doi",
+    "parent": "https://zenodo.org/api/records/13847671",
+    "parent_html": "https://zenodo.org/records/13847671",
+    "parent_doi": "https://doi.org/10.5281/zenodo.13847671",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13847671",
+    "self_iiif_manifest": "https://zenodo.org/api/iiif/record:13847672/manifest",
+    "self_iiif_sequence": "https://zenodo.org/api/iiif/record:13847672/sequence/default",
+    "files": "https://zenodo.org/api/records/13847672/files",
+    "media_files": "https://zenodo.org/api/records/13847672/media-files",
+    "archive": "https://zenodo.org/api/records/13847672/files-archive",
+    "archive_media": "https://zenodo.org/api/records/13847672/media-files-archive",
+    "latest": "https://zenodo.org/api/records/13847672/versions/latest",
+    "latest_html": "https://zenodo.org/records/13847672/latest",
+    "versions": "https://zenodo.org/api/records/13847672/versions",
+    "draft": "https://zenodo.org/api/records/13847672/draft",
+    "access_links": "https://zenodo.org/api/records/13847672/access/links",
+    "access_grants": "https://zenodo.org/api/records/13847672/access/grants",
+    "access_users": "https://zenodo.org/api/records/13847672/access/users",
+    "access_request": "https://zenodo.org/api/records/13847672/access/request",
+    "access": "https://zenodo.org/api/records/13847672/access",
+    "communities": "https://zenodo.org/api/records/13847672/communities",
+    "communities-suggestions": "https://zenodo.org/api/records/13847672/communities-suggestions",
+    "request_deletion": "https://zenodo.org/api/records/13847672/request-deletion",
+    "file_modification": "https://zenodo.org/api/records/13847672/file-modification",
+    "requests": "https://zenodo.org/api/records/13847672/requests"
+  },
+  "updated": "2024-10-01T08:36:05.535488+00:00",
+  "recid": "13847672",
+  "revision": 4,
+  "files": [
+    {
+      "id": "be73ac3f-4579-4990-b1df-ac5a58705d2f",
+      "key": "ENG_Translated interview guide.docx",
+      "size": 29663,
+      "checksum": "md5:66648412149ffc4b3ab4c5379cd5bcb9",
+      "links": {
+        "self": "https://zenodo.org/api/records/13847672/files/ENG_Translated interview guide.docx/content"
+      }
+    },
+    {
+      "id": "5ad7b541-65e7-4d95-bda1-a780e878cb39",
+      "key": "Interviewguide_DK.docx",
+      "size": 32101,
+      "checksum": "md5:74d9336c6551c8d27856a6732b2e9ee7",
+      "links": {
+        "self": "https://zenodo.org/api/records/13847672/files/Interviewguide_DK.docx/content"
+      }
+    },
+    {
+      "id": "cff5046d-cfef-4808-940f-26453800d36c",
+      "key": "Interviews anonymiseret word.zip",
+      "size": 1312332,
+      "checksum": "md5:bc5ac7d6605e382b72a9123d3a6682fc",
+      "links": {
+        "self": "https://zenodo.org/api/records/13847672/files/Interviews anonymiseret word.zip/content"
+      }
+    },
+    {
+      "id": "63e56cca-6e3e-4647-a766-a3b2a7f4254e",
+      "key": "eCape Energy crisis - anonymisering - final.nvp",
+      "size": 46530560,
+      "checksum": "md5:4cabd59ce42e6a7921ef1ae81d6e6d59",
+      "links": {
+        "self": "https://zenodo.org/api/records/13847672/files/eCape Energy crisis - anonymisering - final.nvp/content"
+      }
+    }
+  ],
+  "swh": null,
+  "owners": [
+    {
+      "id": "1195338"
+    }
+  ],
+  "status": "published",
+  "stats": {
+    "downloads": 280,
+    "unique_downloads": 270,
+    "views": 302,
+    "unique_views": 282,
+    "version_downloads": 280,
+    "version_unique_downloads": 270,
+    "version_unique_views": 282,
+    "version_views": 302
+  },
+  "state": "done",
+  "submitted": true
+}
