@@ -13,25 +13,6 @@ The pipeline demonstrates how qualitative research datasets can be systematicall
 - Reproducible acquisition pipeline
 - Organized project structure for scalability
   
-## Project Structure
-Qda Project_Ikram
-│
-├── src/
-│ ├── acquire_zenodo.py # Zenodo acquisition script
-│ ├── db.py # SQLite database schema
-│ ├── config.py # Configuration settings
-│ └── csv_export.py # Metadata export utility (optional)
-│
-├── my_downloads/
-│ └── zenodo/
-│ ├── <dataset folders> # One folder per dataset
-│
-├── data/
-│ └── qda_archive.db # SQLite metadata database
-│
-├── requirements.txt
-└── README.md
-
 ## Acquisition Output Format
 
 Metadata is stored in an SQLite database:
@@ -56,7 +37,7 @@ The acquisition pipeline was executed successfully and downloaded:
 
 However, due to **GitHub file size limitations**, only:
 
-### **7 datasets are included in this repository**
+### **6 datasets are included in this repository**
 
 Some datasets contained very large files that exceeded GitHub’s upload limits.  
 The full set of datasets can be reproduced locally by re-running the acquisition script.
@@ -96,3 +77,4 @@ Running the script again will rebuild the local archive and metadata database.
 ## Author
 Md Ikram Tareq
 QDArchive Project – Phase 1: Acquisition
+
