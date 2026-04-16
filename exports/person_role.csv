@@ -1,0 +1,133 @@
+id,project_id,name,role
+1,1,"Mannheimer, Sara",AUTHOR
+2,1,"Mannheimer, Sara",OWNER
+3,2,"Furlong, Darcy E.",AUTHOR
+4,2,"Romero, Anna",AUTHOR
+5,2,"Helström, Kirstin",AUTHOR
+6,2,"Lester, Jessica Nina",AUTHOR
+7,2,"Karcher, Sebastian",AUTHOR
+8,2,"Furlong, Darcy",OWNER
+9,3,"VandeVusse, Alicia",AUTHOR
+10,3,"Mueller, Jennifer",AUTHOR
+11,3,"Mueller, Jennifer",OWNER
+12,4,"Ibitoye, Mobolaji",AUTHOR
+13,4,"OlaOlorun, Funmilola",AUTHOR
+14,4,"Casterline, John",AUTHOR
+15,4,"Ibitoye, Mobolaji",OWNER
+16,5,"Zhou, Chengmin",AUTHOR
+17,5,"Gu, Wenhui",AUTHOR
+18,5,"Gu, Wenhui",OWNER
+19,6,"Awasthi, Kiran",AUTHOR
+20,6,"Awasthi, Kiran",OWNER
+21,7,"Avery, Rosemary",AUTHOR
+22,7,"Byrne, Sahara",AUTHOR
+23,7,"Dorf, Michael C",AUTHOR
+24,7,"Greiner Safi, Amelia",AUTHOR
+25,7,"Kalaji, Motasem",AUTHOR
+26,7,"Mathios, Alan",AUTHOR
+27,7,"Niederdeppe, Jeff",AUTHOR
+28,7,"Porticella, Norman",AUTHOR
+29,7,"Porticella, Norman",OWNER
+30,8,"Acolin, Jessica",AUTHOR
+31,8,"Jampel, Sonya",AUTHOR
+32,8,"Acolin, Jessica",OWNER
+33,9,"Galli, Chiara",AUTHOR
+34,9,"Galli, Chiara",OWNER
+35,10,"Willen, Sarah",AUTHOR
+36,10,"Mason, Katherine",AUTHOR
+37,10,"Willen, Sarah S.",OWNER
+38,10,"Mason, Katherine A.",OWNER
+39,11,"Micatka, Nathan K.",AUTHOR
+40,11,"Micatka, Nathan K.",OWNER
+41,12,"O'Neill, Maureen",AUTHOR
+42,12,"O'Neill, Maureen",OWNER
+43,13,"Virbel-Fleischman, Clara",AUTHOR
+44,13,"Virbel-Fleischman, Clara",OWNER
+45,14,"Baum, Eleonore",AUTHOR
+46,14,"Usman, Sied",AUTHOR
+47,14,"Abdilahi, Roda",AUTHOR
+48,14,"Baum, Eleonore",OWNER
+49,15,"Rinkus, Marisa",AUTHOR
+50,15,"Rinkus, Marisa A.,",OWNER
+51,16,"Kelleher, Sarah",AUTHOR
+52,16,"Fisher, Hannah M",AUTHOR
+53,16,"Winger, Joseph",AUTHOR
+54,16,"Miller, Shannon N.",AUTHOR
+55,16,"Amaden, Grace",AUTHOR
+56,16,"somers, tamara",AUTHOR
+57,16,"Colloca, Luana",AUTHOR
+58,16,"Uronis, Hope",AUTHOR
+59,16,"Keefe, Francis",AUTHOR
+60,16,"Miller, Shannon N.",OWNER
+61,17,"Wolter, Stella",AUTHOR
+62,17,"Liepold, Mira",AUTHOR
+63,17,"Tatzber, Rosa",AUTHOR
+64,17,"Sauer, Birgit",AUTHOR
+65,18,"Grüner, Bernhard",AUTHOR
+66,18,"Konzett, Savina",AUTHOR
+67,19,"Hudler-Seitzberger, Michaela",AUTHOR
+68,19,"Bittner, Marc",AUTHOR
+69,20,"Konzett, Savina",AUTHOR
+70,20,"Grüner, Bernhard",AUTHOR
+71,21,"Salem, Ingrid",AUTHOR
+72,21,"Renner, Walter",AUTHOR
+73,22,"Demertzis, Nicolas",AUTHOR
+74,22,"Tsekeris, Charalambos",AUTHOR
+75,23,"Theorin, Nora",AUTHOR
+76,23,"Meltzer, Christine",AUTHOR
+77,23,"Eberl, Jakob-Moritz",AUTHOR
+78,23,"Lind, Fabienne",AUTHOR
+79,23,"Galyga, Sebastian",AUTHOR
+80,23,"Heidenreich, Tobias",AUTHOR
+81,23,"Strömbäck, Jesper",AUTHOR
+82,23,"Schemer, Christian",AUTHOR
+83,23,"Boomgaarden, Hajo G.",AUTHOR
+84,24,"Keusch, Florian",AUTHOR
+85,24,"Yan, Ting",AUTHOR
+86,25,"Einwiller, Sabine",AUTHOR
+87,25,"Laufer, Dan",AUTHOR
+88,26,"Bischof, Christian",AUTHOR
+89,26,"Müller, Karl H.",AUTHOR
+90,27,"Δεμερτζής, Νικόλαος",AUTHOR
+91,27,"Λιναρδής, Απόστολος",AUTHOR
+92,27,"Πουλακιδάκος, Σταμάτης",AUTHOR
+93,28,"Δεμερτζής, Νίκος",AUTHOR
+94,28,"Τσέκερης, Χαράλαμπος",AUTHOR
+95,29,Statistics Austria,AUTHOR
+96,30,GfK Austria,AUTHOR
+97,31,"Göllner, Tobias",AUTHOR
+98,31,"Klotz, Johannes",AUTHOR
+99,32,Statistics Austria,AUTHOR
+100,33,Statistics Austria,AUTHOR
+101,34,Statistics Austria,AUTHOR
+102,35,Statistics Austria,AUTHOR
+103,36,"Litvyak, Olga",AUTHOR
+104,36,"Fischeneder, Andreas",AUTHOR
+105,36,"Balluff, Paul",AUTHOR
+106,36,"Müller, Wolfgang C.",AUTHOR
+107,36,"Kritzinger, Sylvia",AUTHOR
+108,36,"Boomgaarden, Hajo G.",AUTHOR
+109,37,GfK Austria,AUTHOR
+110,38,Statistics Austria,AUTHOR
+111,39,Sozialwissenschaftliche Studiengesellschaft,AUTHOR
+112,40,Sozialwissenschaftliche Studiengesellschaft,AUTHOR
+113,41,Statistics Austria,AUTHOR
+114,42,Statistics Austria,AUTHOR
+115,43,Sozialwissenschaftliche Studiengesellschaft,AUTHOR
+116,44,GfK Austria,AUTHOR
+117,45,"Kleinen-von Königslöw, Katharina",AUTHOR
+118,45,"Haselmayer, Martin",AUTHOR
+119,45,"Jacobi, Carina",AUTHOR
+120,45,"Eberl, Jakob-Moritz",AUTHOR
+121,45,"Vonbun, Ramona",AUTHOR
+122,45,"Schönbach, Klaus",AUTHOR
+123,45,"Boomgaarden, Hajo G.",AUTHOR
+124,46,Statistics Austria,AUTHOR
+125,47,Statistics Austria,AUTHOR
+126,48,PUMA,AUTHOR
+127,49,"Aichholzer, Julian",AUTHOR
+128,49,"Kritzinger, Sylvia",AUTHOR
+129,49,"Wagner, Markus",AUTHOR
+130,49,"Berk, Nicolai",AUTHOR
+131,49,"Boomgaarden, Hajo",AUTHOR
+132,49,"Müller, Wolfgang C.",AUTHOR

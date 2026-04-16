@@ -1,80 +1,298 @@
-# Seeding QDArchive – Part 1 (Acquisition)
+# QDArchive Seeding Project — Part 1: Data Acquisition
 
-## Project Overview
-This project implements the **data acquisition pipeline** for the QDArchive system.  
-The objective of this phase is to automatically download qualitative research datasets from the **Zenodo repository**, organize them into a structured local archive, and store required metadata in an **SQLite database**.
+**Student:** Md Ikram Tareq  
+**Student ID:** 23158587  
+**Course:** Applied Software Engineering  
+**Supervisor:** Prof. Dr. Dirk Riehle  
+**University:** Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)  
 
-The pipeline demonstrates how qualitative research datasets can be systematically collected and prepared for future classification and analysis.
+---
 
-## Main Features
-- Automated dataset acquisition from **Zenodo**
-- Each dataset stored in a **separate folder**
-- Metadata stored in an **SQLite database**
-- Reproducible acquisition pipeline
-- Organized project structure for scalability
-  
-## Acquisition Output Format
+# Project Overview
 
-Metadata is stored in an SQLite database:
+This project is part of the *Seeding QDArchive* initiative.  
+The goal is to automatically collect qualitative research datasets from public repositories and store them in a structured database.
 
+The system:
 
-The database table **qda_files** contains the required Phase-1 metadata fields:
+- Searches repositories using qualitative and QDA-specific queries  
+- Downloads available dataset files and associated resources  
+- Stores structured metadata in SQLite  
+- Logs all successes and failures for transparency  
 
-| Column | Description |
-|--------|------------|
-| url | URL of the downloaded QDA file |
-| timestamp | Download timestamp |
-| local_dir | Local directory containing the dataset |
-| local_filename | Name of downloaded file |
+This project provides the **foundation for QDArchive**, a platform for sharing qualitative research data.
 
-These fields follow the required **Output Format v1** for the acquisition stage.
+---
 
-## Downloaded Datasets
+# Project Goal
 
-The acquisition pipeline was executed successfully and downloaded:
+- Discover qualitative datasets  
+- Download QDA and associated files  
+- Extract structured metadata  
+- Store everything in a normalized database  
+- Build a reproducible acquisition pipeline  
 
-### **10 datasets from Zenodo**
+---
 
-However, due to **GitHub file size limitations**, only:
+# Assigned Repositories
 
-### **6 datasets are included in this repository**
+| # | Repository | URL | Method |
+|--|------------|-----|--------|
+| 1 | QDR (Qualitative Data Repository) | https://qdr.syr.edu/ | Dataverse API |
+| 2 | CESSDA Data Catalogue | https://datacatalogue.cessda.eu/ | OAI-PMH + HTML crawling |
 
-Some datasets contained very large files that exceeded GitHub’s upload limits.  
-The full set of datasets can be reproduced locally by re-running the acquisition script.
+---
 
-This ensures the repository remains lightweight while preserving reproducibility.
+# Search Strategy
 
+### General Queries
+- qualitative  
+- qualitative research  
+- interview  
+- interview study  
+- focus group  
+- ethnography  
 
-## How to Run the Acquisition Pipeline
+### QDA-Specific Queries
+- qdpx  
+- nvivo / nvpx  
+- maxqda / mqda  
 
-### 1️⃣ Install dependencies
-pip install -r requirements.txt
+These queries aim to detect datasets containing **qualitative data analysis (QDA) files**.
 
-### 2️⃣ Download datasets
-python -m src.acquire_zenodo --limit_datasets 10
+---
 
-This command will:
+# Acquisition Approach
 
-1. Query Zenodo records
-2. Download dataset files
-3. Create one folder per dataset
-4. Store metadata in SQLite
-   
-Downloaded files are stored in:
-my_downloads/zenodo/
+## QDR Pipeline
 
-## Reproducibility
+- Used Dataverse API:
+  - `/api/search`
+  - `/api/datasets/:persistentId`
+- Extracted metadata from:
+  - `latestVersion`
+  - `metadataBlocks`
+- Downloaded:
+  - dataset files
+  - associated files (PDF, TXT, CSV, ZIP, etc.)
+- Stored:
+  - metadata
+  - file status
+  - license information  
 
-The entire acquisition process is reproducible.  
-Running the script again will rebuild the local archive and metadata database.
+---
 
-## Technologies Used
-- Python
-- Zenodo REST API
-- SQLite
-- Git & GitHub
+## CESSDA Pipeline
 
-## Author
-Md Ikram Tareq
-QDArchive Project – Phase 1: Acquisition
+- Used OAI-PMH (`ListRecords`)
+- Extracted:
+  - title, description, DOI, language  
+  - keywords and contributors  
+  - license information  
+- Extended with:
+  - HTML crawling of landing pages  
+  - extraction of potential download links  
+  - file download attempts  
 
+---
+
+# How to Run
+
+```bash
+python -m src.run_all
+python -m src.csv_export
+````
+
+---
+
+# Database Structure
+
+Database: `23158587-seeding.db`
+
+| Table       | Description                   |
+| ----------- | ----------------------------- |
+| projects    | Dataset-level metadata        |
+| files       | File-level metadata + status  |
+| keywords    | Keywords per project          |
+| person_role | Authors and contributors      |
+| licenses    | License or access information |
+
+### File Status
+
+* `SUCCEEDED`
+* `FAILED_LOGIN`
+* `FAILED_SERVER`
+
+---
+
+# Results Summary
+
+| Metric             | Value  |
+| ------------------ | ------ |
+| Projects processed | ~40+   |
+| Files recorded     | ~4000+ |
+| Files downloaded   | ~100+  |
+| Failed downloads   | ~3800+ |
+
+---
+
+#  File Types
+
+### QDA Files (target)
+
+* `.qdpx`, `.nvpx`, `.mqda`
+---
+
+### Associated Files
+
+* `.pdf`, `.txt`, `.csv`, `.xlsx`, `.zip`, `.json`, `.xml`
+
+---
+
+#  Limitations
+
+## 1. Restricted Data Access (Major Issue)
+
+* Most QDR datasets require authentication
+* Files return `FAILED_LOGIN`
+* Large portion of data is inaccessible
+
+---
+
+## 2. CESSDA Limitations
+
+* Primarily metadata provider
+* External links often:
+
+  * require login
+  * are not directly downloadable
+
+---
+
+## 3. Lack of QDA Files
+
+* No QDA files found
+  → Indicates real-world gap:
+
+> Researchers rarely share analysis files
+
+---
+
+## 4. Metadata Quality Issues
+
+* Missing or inconsistent:
+
+  * licenses
+  * keywords
+  * author information
+
+---
+
+## 5. High Failure Rate
+
+Most failures due to:
+
+* restricted access
+* broken links
+* server errors
+
+---
+
+# Technical Challenges
+
+## Data Challenges
+
+* Qualitative datasets are often restricted
+* Repositories not optimized for QDA sharing
+* Data quality varies significantly
+
+---
+
+## Programming Challenges
+
+### Duplicate datasets
+
+**Problem:** same dataset appears in multiple queries
+
+**Solution:** deduplication using `project_url`
+
+---
+
+### License extraction
+
+**Problem:** inconsistent formats
+
+**Solution:** extract from metadata + fallback `UNKNOWN`
+
+---
+
+### Download failures
+
+**Problem:** restricted files
+
+**Solution:** classify as `FAILED_LOGIN` / `FAILED_SERVER`
+
+---
+
+### CESSDA file discovery
+
+**Problem:** no direct file links
+
+**Solution:** HTML crawling for extraction
+
+---
+
+# Key Findings
+
+* QDA files are extremely rare in public repositories
+* Most datasets provide raw data, not analysis files
+* Access restrictions are a major barrier
+* Metadata quality is inconsistent
+
+---
+
+# Improvements Made
+
+* Multi-query search system
+* API + OAI-PMH integration
+* Failure tracking system
+* Dataset deduplication
+* Structured database schema
+
+---
+
+# Project Structure
+
+```
+QDArchive/
+│
+├── src/
+│   ├── acquire_qdr.py
+│   ├── acquire_cessda.py
+│   ├── db.py
+│   ├── config.py
+│   ├── utils.py
+│   ├── run_all.py
+│   └── csv_export.py
+│
+├── my_downloads/
+│   ├── qdr/
+│   └── cessda/
+│
+├── 23158587-seeding.db
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# Conclusion
+
+This project successfully demonstrates:
+
+* Automated data acquisition pipeline
+* Integration of API and OAI-PMH sources
+* Structured metadata storage
+* Transparent failure handling
+
+Despite limitations, it provides a strong foundation for **QDArchive data collection**.

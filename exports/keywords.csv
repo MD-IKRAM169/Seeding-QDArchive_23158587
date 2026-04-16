@@ -1,0 +1,287 @@
+id,project_id,keyword
+1,1,data curation
+2,1,qualitative research
+3,1,social media
+4,1,big data
+5,1,interviews
+6,1,critical incident technique
+7,1,ethics
+8,1,grounded theory
+9,2,active learning
+10,2,teaching methods
+11,2,college students
+12,2,college faculty
+13,2,qualitative research
+14,3,abortion
+15,3,Qualitative research
+16,3,informed consent
+17,3,data
+18,3,Cisgender people
+19,3,Transparency
+20,3,data sharing
+21,4,fertility
+22,4,birth control
+23,4,parents
+24,4,children
+25,4,household composition
+26,5,furniture
+27,5,Furniture--China
+28,5,customized furniture
+29,5,furniture purchase
+30,5,demand factors
+31,5,China furniture market
+32,6,Malaria
+33,6,Public Health
+34,6,Interviews
+35,7,e-cigarettes
+36,7,vaping
+37,7,smoking
+38,7,information
+39,7,health problems
+40,7,risk factors
+41,8,climate distress
+42,8,young adults
+43,8,mental health
+44,9,unaccompanied immigrant children
+45,9,immigration
+46,9,asylum seekers
+47,9,lawyers
+48,9,children
+49,10,Social history
+50,10,"COVID-19 Pandemic, 2020-2023"
+51,10,Journals (Diaries)
+52,10,Archival activism
+53,10,Medical anthropology
+54,10,Pandemics
+55,11,adolescence
+56,11,welfare
+57,11,politics
+58,11,attitude
+59,11,civic
+60,11,government
+61,11,youth
+62,11,policy
+63,12,athlete
+64,12,bullying
+65,12,high performance
+66,12,NVivo
+67,12,parents
+68,12,school age
+69,12,schools
+70,12,student-athletes
+71,12,teachers
+72,13,Parkinson's disease
+73,13,Body-worn sensors
+74,13,interviews
+75,14,pain management
+76,14,pain
+77,14,pastoralism
+78,14,chronic pain
+79,14,health services
+80,14,herders
+81,15,gender
+82,15,participation
+83,15,conservation
+84,15,sea turtles
+85,15,mixed methods research
+86,16,Pain
+87,16,Cancer
+88,16,Rectum--Cancer
+89,16,Virtual reality
+90,17,Children
+91,17,Youth
+92,17,Integration
+93,17,Education
+94,17,Schools
+95,17,Cultural pluralism
+96,18,Immigration
+97,18,Counter-urbanization
+98,18,Residential mobility
+99,18,Social integration
+100,18,Life cycle
+101,18,Life styles
+102,18,Cultural identity
+103,19,Businesses
+104,19,Economic and social development
+105,19,Economic integration
+106,19,European economic community
+107,19,Human settlement
+108,19,International relations
+109,19,Workers
+110,20,Farmers
+111,20,Agricultural development
+112,20,Access to countryside
+113,20,Motivation
+114,20,Attitudes
+115,20,Idealism
+116,20,Life styles
+117,20,Food production
+118,20,Preservation of buildings
+119,20,Cultural heritage
+120,20,Landscape protection
+121,20,Quality of life
+122,20,Work-life balance
+123,21,Language
+124,21,Nationalism
+125,21,Religion
+126,22,INTERNET USE
+127,22,ACCESS TO INFORMATION AND COMMUNICATIONS TECHNOLOGY
+128,22,TECHNOLOGY AND INNOVATION
+129,22,COMPUTER LITERACY
+130,22,INFORMATION SOCIETY
+131,22,INTERNET
+132,22,INTERNET ACCESS
+133,22,ONLINE SHOPPING
+134,22,CYBERBULLYING
+135,22,ELECTRONIC MAIL
+136,23,European Union
+137,23,Population migration
+138,23,Mass media
+139,23,Freedom of movement
+140,23,Public opinion
+141,23,Data collection methodology
+142,24,Data collection methodology
+143,25,Communications
+144,25,Journalism
+145,25,Public relations
+146,26,Age discrimination
+147,26,Anti-semitism
+148,26,Democracy
+149,26,Health
+150,26,Interpersonal trust
+151,26,Labour and employment
+152,26,Leisure time
+153,26,Mass media use
+154,26,National identity
+155,26,Political attitudes
+156,26,Quality of life
+157,26,Religion
+158,26,Social networks
+159,28,ΧΡΗΣΗ ΔΙΑΔΙΚΤΥΟΥ
+160,28,ΠΡΟΣΒΑΣΗ ΣΤΙΣ ΤΕΧΝΟΛΟΓΙΕΣ ΠΛΗΡΟΦΟΡΙΑΣ ΚΑΙ ΕΠΙΚΟΙΝΩΝΙΩΝ
+161,28,ΤΕΧΝΟΛΟΓΙΑ ΚΑΙ ΚΑΙΝΟΤΟΜΙΑ
+162,28,ΕΓΓΡΑΜΜΑΤΟΣΥΝΗ ΣΤΗΝ ΤΕΧΝΟΛΟΓΙΑ ΤΩΝ ΥΠΟΛΟΓΙΣΤΩΝ
+163,28,ΚΟΙΝΩΝΙΑ ΤΗΣ ΠΛΗΡΟΦΟΡΙΑΣ
+164,28,ΔΙΑΔΙΚΤΥΟ
+165,28,ΠΡΟΣΒΑΣΗ ΣΤΟ ΔΙΑΔΙΚΤΥΟ
+166,28,ΗΛΕΚΤΡΟΝΙΚΕΣ ΑΓΟΡΕΣ
+167,28,ΔΙΑΔΙΚΤΥΑΚΟΣ ΕΚΦΟΒΙΣΜΟΣ
+168,28,ΗΛΕΚΤΡΟΝΙΚΟ ΤΑΧΥΔΡΟΜΕΙΟ
+169,29,Culture
+170,29,Holiday leave
+171,29,Leisure time
+172,29,Sports
+173,30,Elections
+174,30,Voting intention
+175,30,Party identification
+176,31,Social inequality
+177,31,European Union
+178,31,Mortality
+179,32,Birth rate
+180,32,Divorce
+181,32,Families
+182,32,Hours of work
+183,32,Marriage
+184,32,Women's employment
+185,33,Education
+186,33,Human settlement
+187,33,Population migration
+188,34,Housing tenure
+189,34,Labour force
+190,34,Unemployment
+191,34,Housing conditions
+192,34,Housing
+193,34,Job characteristics
+194,34,Economic activity
+195,34,Education
+196,34,Family size
+197,34,Job hunting
+198,34,Labour supply
+199,34,Training
+200,34,Labour and employment
+201,34,Income
+202,34,Hours of work
+203,34,Migrants
+204,34,Mother tongue
+205,34,Language skills
+206,34,National background
+207,34,Occupational training
+208,35,Employment history
+209,35,Occupational life
+210,35,Occupations
+211,36,Mass media coverage
+212,36,Elections
+213,36,Election campaigns
+214,36,Political parties
+215,36,Political representation
+216,36,Political issues
+217,36,European Union
+218,36,Content analysis
+219,37,Political parties
+220,37,Voting behaviour
+221,38,Holiday leave
+222,38,Leisure time
+223,38,Traffic
+224,38,Travel
+225,39,Communities
+226,39,Delinquency
+227,39,European economic community
+228,39,Foreign relations
+229,39,Intergroup relations
+230,39,Labour relations
+231,39,Languages
+232,39,Neighbourhoods
+233,40,Communities
+234,40,Conflict
+235,40,European economic community
+236,40,Intergroup relations
+237,40,Labour relations
+238,40,Languages
+239,40,Neighbourhoods
+240,41,Motorcycles
+241,41,Traffic
+242,41,Vehicles
+243,42,Education
+244,42,Languages
+245,43,Delinquency
+246,43,European economic community
+247,43,Government
+248,43,Identity
+249,43,Police services
+250,43,Political coalitions
+251,43,Terrorism
+252,43,Trade union membership
+253,43,Unemployment
+254,44,Internal politics
+255,45,Political parties
+256,45,Communications
+257,45,Public opinion
+258,45,Mass media
+259,45,Political issues
+260,46,Energy
+261,46,Hours of work
+262,46,Overtime
+263,46,Shift work
+264,47,"Hazards, accidents and disasters"
+265,47,Households
+266,47,Leisure time
+267,47,Sports
+268,48,Age
+269,48,Employment history
+270,48,Health status
+271,48,Job characteristics
+272,48,Job satisfaction
+273,48,Living conditions
+274,48,Pensions
+275,48,Taxation
+276,48,Working conditions
+277,49,Mass media use
+278,49,National identity
+279,49,Political systems
+280,49,Minorities
+281,49,Corruption
+282,49,Social inequality
+283,49,Political efficacy
+284,49,Voting behaviour
+285,49,Political organizations
+286,49,Parliamentary elections
