@@ -1,0 +1,1 @@
+"""SQLite submission validator package."""
