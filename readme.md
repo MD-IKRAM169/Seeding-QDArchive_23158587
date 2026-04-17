@@ -97,9 +97,10 @@ SQLite Database: `23158587-seeding.db`
 | Metric                 | Value |
 | ---------------------- | ----- |
 | **Projects processed** | 62    |
-| **Files recorded**     | 4,237 |
-| **Files downloaded**   | 406   |
-| **Failed downloads**   | 3,831 |
+| **Files recorded**     | 4,087 |
+| **Keywords extracted** | 352   |
+| **Persons recorded**   | 156   |
+| **Licenses recorded**  | 62    |
 
 ---
 
