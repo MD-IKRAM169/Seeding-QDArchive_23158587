@@ -198,13 +198,6 @@ QDArchive/
 
 * `23158587-seeding.db` (included in repository root)
 
----
-
-### Downloaded Files
-
-The downloaded dataset files are **not stored in the repository** due to size constraints.
-
----
 
 ### External Access (FAUbox)
 
@@ -214,7 +207,7 @@ The downloaded dataset files are available here:
 
 ---
 
-## ✅ SQ26 Validation Result
+## SQ26 Validation Result
 
 The SQLite database was validated using the official SQ26 submission validator.
 
