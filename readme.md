@@ -1,267 +1,187 @@
 # QDArchive Seeding Project — Part 1: Data Acquisition
 
-**Student:** Md Ikram Tareq  
-**Student ID:** 23158587  
-**Course:** Applied Software Engineering  
-**Supervisor:** Prof. Dr. Dirk Riehle  
-**University:** Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)  
+## Author
+
+* **Name:** Md Ikram Tareq
+* **Student ID:** 23158587
+* **University:** Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU)
+* **Supervisor:** Prof. Dr. Dirk Riehle
 
 ---
 
-# Project Overview
+## Project Overview
 
-This project is part of the *Seeding QDArchive* initiative.  
-The goal is to automatically collect qualitative research datasets from public repositories and store them in a structured database.
+This project is part of the **Seeding QDArchive initiative**, aiming to build an automated pipeline for collecting qualitative research datasets from public repositories.
 
 The system:
 
-- Searches repositories using qualitative and QDA-specific queries  
-- Downloads available dataset files and associated resources  
-- Stores structured metadata in SQLite  
-- Logs all successes and failures for transparency  
+* Searches repositories using qualitative and QDA-specific queries
+* Downloads publicly available dataset files
+* Extracts structured metadata
+* Stores all data in a normalized SQLite database
+* Logs all download outcomes (success + failure)
 
-This project provides the **foundation for QDArchive**, a platform for sharing qualitative research data.
-
----
-
-# Project Goal
-
-- Discover qualitative datasets  
-- Download QDA and associated files  
-- Extract structured metadata  
-- Store everything in a normalized database  
-- Build a reproducible acquisition pipeline  
+This serves as a **foundation for QDArchive**, a future platform for qualitative data sharing.
 
 ---
 
-# Assigned Repositories
+## Data Sources
 
-| # | Repository | URL | Method |
-|--|------------|-----|--------|
-| 1 | QDR (Qualitative Data Repository) | https://qdr.syr.edu/ | Dataverse API |
-| 2 | CESSDA Data Catalogue | https://datacatalogue.cessda.eu/ | OAI-PMH + HTML crawling |
+| # | Repository                        | URL                              | Method                  |
+| - | --------------------------------- | -------------------------------- | ----------------------- |
+| 1 | QDR (Qualitative Data Repository) | https://qdr.syr.edu/             | Dataverse API           |
+| 2 | CESSDA Data Catalogue             | https://datacatalogue.cessda.eu/ | OAI-PMH + HTML crawling |
 
 ---
 
-# Search Strategy
+## Search Strategy
 
 ### General Queries
-- qualitative  
-- qualitative research  
-- interview  
-- interview study  
-- focus group  
-- ethnography  
+
+* qualitative
+* qualitative research
+* interview
+* focus group
+* ethnography
 
 ### QDA-Specific Queries
-- qdpx  
-- nvivo / nvpx  
-- maxqda / mqda  
 
-These queries aim to detect datasets containing **qualitative data analysis (QDA) files**.
+* qdpx
+* nvivo / nvpx
+* maxqda / mqda
 
----
-
-# Acquisition Approach
-
-## QDR Pipeline
-
-- Used Dataverse API:
-  - `/api/search`
-  - `/api/datasets/:persistentId`
-- Extracted metadata from:
-  - `latestVersion`
-  - `metadataBlocks`
-- Downloaded:
-  - dataset files
-  - associated files (PDF, TXT, CSV, ZIP, etc.)
-- Stored:
-  - metadata
-  - file status
-  - license information  
+These queries aim to identify datasets containing **qualitative data analysis (QDA) files**.
 
 ---
 
-## CESSDA Pipeline
+## Pipeline Architecture
 
-- Used OAI-PMH (`ListRecords`)
-- Extracted:
-  - title, description, DOI, language  
-  - keywords and contributors  
-  - license information  
-- Extended with:
-  - HTML crawling of landing pages  
-  - extraction of potential download links  
-  - file download attempts  
+### QDR Pipeline
+
+* Uses Dataverse API (`/search`, `/datasets`)
+* Extracts metadata from `latestVersion`
+* Downloads:
+
+  * dataset files
+  * documentation (PDF, TXT, CSV, ZIP, etc.)
+
+### CESSDA Pipeline
+
+* Uses OAI-PMH (`ListRecords`)
+* Extracts metadata (title, DOI, contributors, etc.)
+* Enhances with:
+
+  * HTML crawling
+  * link extraction
+  * download attempts from publisher pages
 
 ---
 
-# How to Run
+## Database Schema
 
-```bash
-python -m src.run_all
-python -m src.csv_export
-````
+SQLite Database: `23158587-seeding.db`
 
----
-
-# Database Structure
-
-Database: `23158587-seeding.db`
-
-| Table       | Description                   |
-| ----------- | ----------------------------- |
-| projects    | Dataset-level metadata        |
-| files       | File-level metadata + status  |
-| keywords    | Keywords per project          |
-| person_role | Authors and contributors      |
-| licenses    | License or access information |
+| Table         | Description                           |
+| ------------- | ------------------------------------- |
+| `projects`    | Dataset-level metadata                |
+| `files`       | File-level metadata + download status |
+| `keywords`    | Project keywords                      |
+| `person_role` | Authors and contributors              |
+| `licenses`    | License/access information            |
 
 ### File Status
 
-* `SUCCEEDED`
-* `FAILED_LOGIN`
-* `FAILED_SERVER`
+* `SUCCEEDED` → File successfully downloaded
+* `FAILED_LOGIN` → Access restricted (authentication required)
+* `FAILED_SERVER` → Broken link or invalid response
 
 ---
 
-# Results Summary
+## Results
 
-| Metric             | Value  |
-| ------------------ | ------ |
-| Projects processed | ~40+   |
-| Files recorded     | ~4000+ |
-| Files downloaded   | ~100+  |
-| Failed downloads   | ~3800+ |
+| Metric                 | Value |
+| ---------------------- | ----- |
+| **Projects processed** | 62    |
+| **Files recorded**     | 4,237 |
+| **Files downloaded**   | 406   |
+| **Failed downloads**   | 3,831 |
 
 ---
 
-#  File Types
+## File Types
 
-### QDA Files (target)
+### Target QDA Files
 
-* `.qdpx`, `.nvpx`, `.mqda`
----
+* `.qdpx`, `.nvpx`
 
-### Associated Files
+### Downloaded Data Types
 
 * `.pdf`, `.txt`, `.csv`, `.xlsx`, `.zip`, `.json`, `.xml`
 
 ---
 
-#  Limitations
+## Key Limitations
 
-## 1. Restricted Data Access (Major Issue)
+### 1. Restricted Data Access
 
-* Most QDR datasets require authentication
-* Files return `FAILED_LOGIN`
-* Large portion of data is inaccessible
+* Majority of files require authentication
+* ~3700+ files marked as `FAILED_LOGIN`
 
----
+### 2. CESSDA Constraints
 
-## 2. CESSDA Limitations
-
-* Primarily metadata provider
+* Mainly provides metadata
 * External links often:
 
   * require login
   * are not directly downloadable
 
----
+### 3. Lack of QDA Files
 
-## 3. Lack of QDA Files
+* No QDA project files found
+* Indicates limited sharing of analysis-level data
 
-* No QDA files found
-  → Indicates real-world gap:
+### 4. High Failure Rate
 
-> Researchers rarely share analysis files
-
----
-
-## 4. Metadata Quality Issues
-
-* Missing or inconsistent:
-
-  * licenses
-  * keywords
-  * author information
+* Only **406 / 4237 files (~9.6%)** successfully downloaded
+* Most failures due to access restrictions
 
 ---
 
-## 5. High Failure Rate
+## Key Findings
 
-Most failures due to:
-
-* restricted access
-* broken links
-* server errors
-
----
-
-# Technical Challenges
-
-## Data Challenges
-
-* Qualitative datasets are often restricted
-* Repositories not optimized for QDA sharing
-* Data quality varies significantly
+* QDA files are **extremely rare** in public repositories
+* Most accessible files are **documentation (PDF, text, metadata)**
+* **Access restriction is the dominant barrier (~88%)**
+* Public datasets rarely include analysis-ready formats
+* Metadata quality varies significantly
 
 ---
 
-## Programming Challenges
+## Technical Challenges & Solutions
 
-### Duplicate datasets
-
-**Problem:** same dataset appears in multiple queries
-
-**Solution:** deduplication using `project_url`
-
----
-
-### License extraction
-
-**Problem:** inconsistent formats
-
-**Solution:** extract from metadata + fallback `UNKNOWN`
+| Challenge                   | Solution                              |
+| --------------------------- | ------------------------------------- |
+| Duplicate datasets          | Deduplication using `project_url`     |
+| Inconsistent licenses       | Metadata parsing + fallback           |
+| Restricted files            | Classified as `FAILED_LOGIN`          |
+| Missing file links (CESSDA) | HTML crawling + link extraction       |
+| Invalid downloads           | Content validation (avoid HTML pages) |
 
 ---
 
-### Download failures
+## How to Run
 
-**Problem:** restricted files
+```bash
+# Run full pipeline
+python -m src.run_all
 
-**Solution:** classify as `FAILED_LOGIN` / `FAILED_SERVER`
-
----
-
-### CESSDA file discovery
-
-**Problem:** no direct file links
-
-**Solution:** HTML crawling for extraction
+# Export results to CSV
+python -m src.csv_export
+```
 
 ---
 
-# Key Findings
-
-* QDA files are extremely rare in public repositories
-* Most datasets provide raw data, not analysis files
-* Access restrictions are a major barrier
-* Metadata quality is inconsistent
-
----
-
-# Improvements Made
-
-* Multi-query search system
-* API + OAI-PMH integration
-* Failure tracking system
-* Dataset deduplication
-* Structured database schema
-
----
-
-# Project Structure
+## Project Structure
 
 ```
 QDArchive/
@@ -279,20 +199,41 @@ QDArchive/
 │   ├── qdr/
 │   └── cessda/
 │
+├── exports/
 ├── 23158587-seeding.db
 ├── requirements.txt
 └── README.md
 ```
+## Data Availability
+
+### SQLite Database
+- `23158587-seeding.db` (included in repository root)
 
 ---
 
-# Conclusion
+### Downloaded Files
 
-This project successfully demonstrates:
+The downloaded dataset files are also included in this repository under:
 
-* Automated data acquisition pipeline
-* Integration of API and OAI-PMH sources
-* Structured metadata storage
-* Transparent failure handling
+- `my_downloads/`
 
-Despite limitations, it provides a strong foundation for **QDArchive data collection**.
+---
+
+### External Access (FAUbox)
+
+The downloaded dataset files are additionally provided via FAUbox:
+
+- FAUbox: https://faubox.rrze.uni-erlangen.de/getlink/fi8WYA43xBQzfHh3tJ5D6v/my_downloads
+
+---
+
+## Conclusion
+
+This project demonstrates:
+
+* A working **data acquisition pipeline** for qualitative research
+* Integration of **API + OAI-PMH sources**
+* Structured storage of metadata and files
+* Transparent handling of access limitations
+
+Despite constraints, it provides a **solid foundation for building QDArchive**.
