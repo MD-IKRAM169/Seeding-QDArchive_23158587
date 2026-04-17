@@ -204,7 +204,7 @@ QDArchive/
 ├── requirements.txt
 └── README.md
 ```
-## 📦 Data Availability
+## Data Availability
 
 ### SQLite Database
 - `23158587-seeding.db` (included in repository root)
@@ -221,7 +221,7 @@ The downloaded dataset files are also included in this repository under:
 
 ### External Access (FAUbox)
 
-For submission purposes, the downloaded dataset files are additionally provided via FAUbox:
+The downloaded dataset files are additionally provided via FAUbox:
 
 - FAUbox: https://faubox.rrze.uni-erlangen.de/getlink/fi8WYA43xBQzfHh3tJ5D6v/my_downloads
 
