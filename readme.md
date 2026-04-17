@@ -27,10 +27,10 @@ This serves as a **foundation for QDArchive**, a future platform for qualitative
 
 ## Data Sources
 
-| Repository                            | Access Method           |
-| ------------------------------------- | ----------------------- |
-| **QDR (Qualitative Data Repository)** | Dataverse API           |
-| **CESSDA Data Catalogue**             | OAI-PMH + HTML Crawling |
+| # | Repository                        | URL                              | Method                  |
+| - | --------------------------------- | -------------------------------- | ----------------------- |
+| 1 | QDR (Qualitative Data Repository) | https://qdr.syr.edu/             | Dataverse API           |
+| 2 | CESSDA Data Catalogue             | https://datacatalogue.cessda.eu/ | OAI-PMH + HTML crawling |
 
 ---
 
