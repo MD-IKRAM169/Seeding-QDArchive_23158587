@@ -60,20 +60,14 @@ These queries aim to identify datasets containing **qualitative data analysis (Q
 
 * Uses Dataverse API (`/search`, `/datasets`)
 * Extracts metadata from `latestVersion`
-* Downloads:
-
-  * dataset files
-  * documentation (PDF, TXT, CSV, ZIP, etc.)
+* Downloads dataset files and documentation
 
 ### CESSDA Pipeline
 
 * Uses OAI-PMH (`ListRecords`)
 * Extracts metadata (title, DOI, contributors, etc.)
-* Enhances with:
-
-  * HTML crawling
-  * link extraction
-  * download attempts from publisher pages
+* Enhances with HTML crawling and link extraction
+* Attempts downloads from publisher pages
 
 ---
 
@@ -87,13 +81,14 @@ SQLite Database: `23158587-seeding.db`
 | `files`       | File-level metadata + download status |
 | `keywords`    | Project keywords                      |
 | `person_role` | Authors and contributors              |
-| `licenses`    | License/access information            |
+| `licenses`    | License information                   |
 
 ### File Status
 
 * `SUCCEEDED` → File successfully downloaded
-* `FAILED_LOGIN` → Access restricted (authentication required)
-* `FAILED_SERVER` → Broken link or invalid response
+* `FAILED_LOGIN_REQUIRED` → Access restricted (authentication required)
+* `FAILED_SERVER_UNRESPONSIVE` → Broken link or server issue
+* `FAILED_TOO_LARGE` → File too large to download
 
 ---
 
@@ -102,9 +97,10 @@ SQLite Database: `23158587-seeding.db`
 | Metric                 | Value |
 | ---------------------- | ----- |
 | **Projects processed** | 62    |
-| **Files recorded**     | 4,237 |
-| **Files downloaded**   | 406   |
-| **Failed downloads**   | 3,831 |
+| **Files recorded**     | 4,087 |
+| **Keywords extracted** | 352   |
+| **Persons recorded**   | 156   |
+| **Licenses recorded**  | 62    |
 
 ---
 
@@ -125,15 +121,12 @@ SQLite Database: `23158587-seeding.db`
 ### 1. Restricted Data Access
 
 * Majority of files require authentication
-* ~3700+ files marked as `FAILED_LOGIN`
+* Large portion marked as `FAILED_LOGIN_REQUIRED`
 
 ### 2. CESSDA Constraints
 
 * Mainly provides metadata
-* External links often:
-
-  * require login
-  * are not directly downloadable
+* External links often require login or are not directly downloadable
 
 ### 3. Lack of QDA Files
 
@@ -142,7 +135,7 @@ SQLite Database: `23158587-seeding.db`
 
 ### 4. High Failure Rate
 
-* Only **406 / 4237 files (~9.6%)** successfully downloaded
+* Only a small percentage of files successfully downloaded
 * Most failures due to access restrictions
 
 ---
@@ -151,7 +144,7 @@ SQLite Database: `23158587-seeding.db`
 
 * QDA files are **extremely rare** in public repositories
 * Most accessible files are **documentation (PDF, text, metadata)**
-* **Access restriction is the dominant barrier (~88%)**
+* **Access restriction is the dominant barrier**
 * Public datasets rarely include analysis-ready formats
 * Metadata quality varies significantly
 
@@ -162,8 +155,8 @@ SQLite Database: `23158587-seeding.db`
 | Challenge                   | Solution                              |
 | --------------------------- | ------------------------------------- |
 | Duplicate datasets          | Deduplication using `project_url`     |
-| Inconsistent licenses       | Metadata parsing + fallback           |
-| Restricted files            | Classified as `FAILED_LOGIN`          |
+| Inconsistent licenses       | License normalization                 |
+| Restricted files            | Classified as `FAILED_LOGIN_REQUIRED` |
 | Missing file links (CESSDA) | HTML crawling + link extraction       |
 | Invalid downloads           | Content validation (avoid HTML pages) |
 
@@ -187,43 +180,61 @@ python -m src.csv_export
 QDArchive/
 │
 ├── src/
-│   ├── acquire_qdr.py
-│   ├── acquire_cessda.py
-│   ├── db.py
-│   ├── config.py
-│   ├── utils.py
-│   ├── run_all.py
-│   └── csv_export.py
-│
-├── my_downloads/
-│   ├── qdr/
-│   └── cessda/
-│
-├── exports/
+├── validator/
+├── schema-definition/
+├── submission_precheck.py
+├── check_submission.py
 ├── 23158587-seeding.db
-├── requirements.txt
-└── README.md
+├── validation_result.png
+├── README.md
+└── requirements.txt
 ```
+
+---
+
 ## Data Availability
 
 ### SQLite Database
-- `23158587-seeding.db` (included in repository root)
+
+* `23158587-seeding.db` (included in repository root)
 
 ---
 
 ### Downloaded Files
 
-The downloaded dataset files are also included in this repository under:
-
-- `my_downloads/`
+The downloaded dataset files are **not stored in the repository** due to size constraints.
 
 ---
 
 ### External Access (FAUbox)
 
-The downloaded dataset files are additionally provided via FAUbox:
+The downloaded dataset files are available here:
 
-- FAUbox: https://faubox.rrze.uni-erlangen.de/getlink/fi8WYA43xBQzfHh3tJ5D6v/my_downloads
+* FAUbox: https://faubox.rrze.uni-erlangen.de/getlink/fi8WYA43xBQzfHh3tJ5D6v/my_downloads
+
+---
+
+## ✅ SQ26 Validation Result
+
+The SQLite database was validated using the official SQ26 submission validator.
+
+**Command used:**
+
+```bash
+python check_submission.py --strict 23158587-seeding.db
+```
+
+**Validation Output:**
+
+![Validation Result](./validation_result.png)
+
+**Summary:**
+
+* ✔ 10 checks passed
+* ✔ 0 warnings
+* ✔ 0 errors
+
+This confirms that the database fully complies with the required SQ26 schema and validation rules.
 
 ---
 
