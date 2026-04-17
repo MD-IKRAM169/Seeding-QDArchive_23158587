@@ -204,29 +204,27 @@ QDArchive/
 ├── requirements.txt
 └── README.md
 ```
-## Data Availability
+## 📦 Data Availability
 
 ### SQLite Database
 - `23158587-seeding.db` (included in repository root)
 
 ---
 
-### Why `my_downloads/` is not pushed to GitHub
+### Downloaded Files
 
-Downloaded files can be large, so the repository uses `.gitignore` to exclude:
+The downloaded dataset files are also included in this repository under:
 
 - `my_downloads/`
-- Python cache (`__pycache__/`, `*.pyc`)
 
 ---
 
-### Downloaded Files (FAUbox)
+### External Access (FAUbox)
 
-The full dataset of downloaded files is not included in this repository due to size limitations.
-
-You can access the complete `my_downloads/` folder here:
+For submission purposes, the downloaded dataset files are additionally provided via FAUbox:
 
 - FAUbox: https://faubox.rrze.uni-erlangen.de/getlink/fi8WYA43xBQzfHh3tJ5D6v/my_downloads
+
 ---
 
 ## Conclusion
