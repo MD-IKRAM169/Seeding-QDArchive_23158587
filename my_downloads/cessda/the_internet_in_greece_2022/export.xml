@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd"
+          xmlns="http://datacite.org/schema/kernel-4"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <identifier identifierType="DOI">10.17903/FK2/LW4XVJ</identifier>
+    <creators><creator><creatorName>Demertzis, Nicolas</creatorName><nameIdentifier schemeURI="https://orcid.org/" nameIdentifierScheme="ORCID">https://orcid.org/0000-0002-6251-0239</nameIdentifier><affiliation>(National and Kapodistrian University of Athens)</affiliation></creator><creator><creatorName>Tsekeris, Charalambos</creatorName><nameIdentifier schemeURI="https://orcid.org/" nameIdentifierScheme="ORCID">https://orcid.org/0000-0002-3304-5331</nameIdentifier><affiliation>(National Centre for Social Research)</affiliation></creator></creators>
+    <titles>
+        <title>The Internet in Greece 2022</title>
+    </titles>
+    <publisher>Κατάλογος Δεδομένων SoDaNet</publisher>
+    <publicationYear>2023</publicationYear>
+    <resourceType resourceTypeGeneral="Dataset"/>
+    
+    <descriptions>
+        <description descriptionType="Abstract">The National Centre for Social Research (EKKE) places rapid socio-technological developments at the epicenter of scientific analysis, with the aim of boosting evidence-based digital policy-making and responding to the need for reliable, comparative and forward-looking knowledge about internet use in Greece. Therefore, since 2015, it has taken the initiative to conduct large-scale research with the main field of study recording the penetration and multiple effects of the internet and its infrastructure in Greek society. Specifically, the World Internet Project Greece (WIP-GR) empirical sample survey is implemented by EKKE and is part of the World Internet Project (WIP), an international partnership of universities and research centers consisting of more than 30 countries on different continents. It is an international research project that started in 1999 and is led by the Annenberg School Center for the Digital Future of the University of Southern California (USA), under Professor Jeffrey Cole. This data project presents the contents of the 4th wave of the World Internet Project Greece (Autumn - Winter 2022), concerning the highlighting of critical issues of the "Greek internet", such as the digital divide, the uses and nformational/entertainment value of the internet, the social media and AI algorithms, the future of privacy and the future of work, as well as the degree of trustworthiness, freedom of expression, political sufficiency, victimization and breach of privacy. The report aspires to a scientifically verifiable, multidimensional and forward-looking view of aspects of our country's complex digital transformation process, resulting in concrete proactive digital policy recommendations.</description>
+    </descriptions>
+    <contributors><contributor contributorType="ContactPerson"><contributorName>Linardis, Apostolos</contributorName><affiliation>(National Centre for Social Research)</affiliation></contributor><contributor contributorType="Producer"><contributorName>National Centre for Social Research</contributorName></contributor></contributors>
+</resource>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd"
+          xmlns="http://datacite.org/schema/kernel-4"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <identifier identifierType="DOI">10.17903/FK2/0B2LM0</identifier>
+    <creators><creator><creatorName>Δεμερτζής, Νίκος</creatorName><nameIdentifier schemeURI="https://orcid.org/" nameIdentifierScheme="ORCID">https://orcid.org/0000-0002-6251-0239</nameIdentifier><affiliation>(Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών)</affiliation></creator><creator><creatorName>Τσέκερης, Χαράλαμπος</creatorName><nameIdentifier schemeURI="https://orcid.org/" nameIdentifierScheme="ORCID">https://orcid.org/0000-0002-3304-5331</nameIdentifier><affiliation>(Εθνικό Κέντρο Κοινωνικών Ερευνών)</affiliation></creator></creators>
+    <titles>
+        <title>Το Διαδίκτυο στην Ελλάδα 2022</title>
+    </titles>
+    <publisher>Κατάλογος Δεδομένων SoDaNet</publisher>
+    <publicationYear>2023</publicationYear>
+    <resourceType resourceTypeGeneral="Dataset"/>
+    
+    <descriptions>
+        <description descriptionType="Abstract">Το Εθνικό Κέντρο Κοινωνικών Ερευνών (EKKE) τοποθετεί στο επίκεντρο της επιστημονικής ανάλυσης τις ραγδαίες κοινωνιοτεχνολογικές εξελίξεις, με στόχο να προσδώσει ώθηση στη χάραξη ψηφιακών πολιτικών βάσει τεκμηρίων και να ανταποκριθεί στην ανάγκη για αξιόπιστη, συγκριτική και μελλοντοστραφή γνώση σχετικά με τη χρήση του διαδικτύου στην Ελλάδα. Ως εκ τούτου, έχει αναλάβει από το 2015 την πρωτοβουλία να διεξαγάγει μεγάλης κλίμακας έρευνα με κύριο πεδίο μελέτης την καταγραφή της διείσδυσης και των πολλαπλών επιδράσεων του διαδικτύου και υποδομών του στην ελληνική κοινωνία. Συγκεκριμένα, η εμπειρική δειγματοληπτική έρευνα World Internet Project Greece (WIP-GR) υλοποιείται από το EKKE και εντάσσεται στη σύμπραξη World Internet Project (WIP), μια διεθνή σύμπραξη πανεπιστημίων και ερευνητικών κέντρων που αποτελείται από περισσότερες από 30 χώρες διαφορετικών ηπείρων. Πρόκειται για ένα διεθνές ερευνητικό πρόγραμμα που ξεκίνησε το 1999 και διευθύνεται από το Annenberg School Center for the Digital Future του Πανεπιστημίου της Νότιας Καλιφόρνιας (ΗΠΑ), υπό τον Καθηγητή Jeffrey Cole. Στο έργο δεδομένων αυτό παρουσιάζονται τα περιεχόμενα του τέταρτου κύματος του World Internet Project Greece (Φθινόπωρο - Χειμώνας 2022), που αφορούν στην ανάδειξη κρίσιμων ζητημάτων του «ελληνικού διαδικτύου», όπως το ψηφιακό χάσμα, οι χρήσεις και η πληροφοριακή/ψυχαγωγική αξία του διαδικτύου, τα μέσα κοινωνικής δικτύωσης και οι αλγόριθμοι της Τεχνητής Νοημοσύνης, το μέλλον της ιδιωτικότητας και το μέλλον της εργασίας, καθώς και ο βαθμός αξιοπιστίας, ελευθερίας της έκφρασης, πολιτικής επάρκειας, θυματοποίησης και παραβίασης της ιδιωτικότητας. Η έκθεση φιλοδοξεί σε μια επιστημονικά ελέγξιμη, σύνθετη και μελλοντοεστιασμένη θεώρηση όψεων της πολύπλοκης διαδικασίας ψηφιακού μετασχηματισμού της χώρας μας, καταλήγοντας σε συγκεκριμένες συστάσεις προορατικής ψηφιακής πολιτικής.</description>
+    </descriptions>
+    <contributors><contributor contributorType="ContactPerson"><contributorName>Λιναρδής, Απόστολος</contributorName><affiliation>(Εθνικό Κέντρο Κοινωνικών Ερευνών)</affiliation></contributor><contributor contributorType="Producer"><contributorName>Εθνικό Κέντρο Κοινωνικών Ερευνών</contributorName></contributor></contributors>
+</resource>

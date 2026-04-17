@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (c) 2014 DDI Alliance, DDI 2.5, 2014-01-28
+
+This file is part of DDI 2.5 XML Schema.
+
+DDI 2.5 XML Schema is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+DDI 2.5 XML Schema is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with DDI 2.5 XML Schema. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!--
+DDI 2.5.1 XML Schema modifies DDI 2.5 by easing cardinality on many text 
+entries to better support multi-language content. It provides the element 
+dataFingerprint within fileTxt as a sub-minor, backward compatible bug correction. 
+This element was intended to be included in DDI 2.5. Documentation of new objects
+was expanded.
+
+These changes do not effect the namespace. 2013-11-14.
+
+-->
+<xs:schema xmlns:xhtml="http://www.w3.org/1999/xhtml"
+           xmlns:fn="http://www.w3.org/2005/xpath-functions"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:saxon="http://xml.apache.org/xslt"
+           xmlns="ddi:codebook:2_5"
+           xmlns:dc="http://purl.org/dc/terms/"
+           targetNamespace="ddi:codebook:2_5"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+   <xs:annotation>
+      <xs:documentation>
+         This is a w3c Schema "Technical Implementation" of the DDI Conceptual Specification. 
+         This schema is intended for use in producing electronic versions of codebooks for quantitative social science data.
+         Please note that the attribute xml-lang in the a.globals group is an error that was persisted to retain backward compatibility. DO NOT USE THIS ATTRIBUTE. If this attribute has been used, transfer the content to xml:lang.
+   	  </xs:documentation>
+   </xs:annotation>
+
+   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+   <xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="ddi-xhtml11.xsd"/>
+   <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+   
+   <!-- Base Structures -->
+   
+   <xs:attributeGroup name="GLOBALS">
+      <xs:attribute name="ID" type="xs:ID" use="optional"/>
+      <xs:attribute name="xml-lang" type="xs:NMTOKEN" use="optional">
+         <xs:annotation>
+            <xs:documentation>DO NOT USE THIS ATTRIBUTE. Its inclusion is an error that was persisted to retain backward compatibility. If this attribute has been used, transfer the content to xml:lang.</xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute ref="xml:lang" use="optional"/>
+      <xs:attribute name="source" default="producer">
+         <xs:simpleType>
+            <xs:restriction base="xs:NMTOKEN">
+               <xs:enumeration value="archive"/>
+               <xs:enumeration value="producer"/>
+            </xs:restriction>
+         </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="elementVersion" type="xs:string" use="optional">
+	  	<xs:annotation>
+			<xs:documentation>Captures version of the element</xs:documentation>
+		</xs:annotation>
+	  </xs:attribute>
+      <xs:attribute name="elementVersionDate" type="dateSimpleType" use="optional">
+	  	<xs:annotation>
+			<xs:documentation>Indicates version date for the element. Use YYYY-MM-DD, YYYY-MM, or YYYY formats.</xs:documentation>
+		</xs:annotation>
+	  </xs:attribute>
+      <xs:attribute name="ddiLifecycleUrn" type="xs:anyURI" use="optional">
+         <xs:annotation>
+            <xs:documentation>Used to capture the DDI-Lifecycle type URN for the element. This may be captured during translation from DDI-Lifecycle to DDI-Codebook structure or in preparation for transferring to a DDI-Lifecycle structure.</xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="ddiCodebookUrn" type="xs:anyURI" use="optional">
+         <xs:annotation>
+            <xs:documentation>Used to capture the DDI-Codebook type URN for the element. This is used to assign a DDI-Codebook specific URN to the element, according the format prescribed by the DDI-Codebook standard.</xs:documentation>
+         </xs:annotation>
+      </xs:attribute>
+   </xs:attributeGroup>
+   
+   <xs:complexType name="baseElementType" abstract="true">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Base Element Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type forms the basis for all elements. Every element may contain the attributes defined the GLOBALS attribute group.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:attributeGroup ref="GLOBALS"/>
+   </xs:complexType>
+   
+   <xs:complexType name="abstractTextType" mixed="true" abstract="true">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Abstract Text Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type forms the basis for all textual elements. Textual elements may contain text or a mix of select elements. This type is abstract and is refined by more specific types which will limit the allowable elements and attributes. Any textual element will be a subset of this type and can be processed as such.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>         
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:extension base="baseElementType">
+            <xs:sequence>
+               <xs:any namespace="##targetNamespace http://www.w3.org/1999/xhtml" minOccurs="0"
+                       maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:anyAttribute namespace="##local"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="simpleTextType" mixed="true">
+         <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Simple Text Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type forms the basis of most textual elements. Elements using this type may have mixed content (text and child elements). The child elements are from the PHRASE, FORM, and xhtml:BlkNoForm.mix (a specific subset of XHTML) content groups. Note that if elements from the PHRASE and FORM groups must not be used with elements from the xhtml:BlkNoForm.mix group; one can use either elements from xhtml:BlkNoForm.mix or elements from the PHRASE and FORM groups. This type is extended in some cases to include additional attributes.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>  
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:restriction base="abstractTextType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+                  <xs:group ref="FORM"/>         
+                  <xs:group ref="xhtml:BlkNoForm.mix"/>
+               </xs:choice>            
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="conceptualTextType" mixed="true">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Conceptual Text Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type forms this basis for a textual element which may also provide for a conceptual (see concept) description of the element a longer description (see txt). If the concept and/or txt elements are used, then the element should contain no other child elements or text. Note that if elements from the PHRASE and FORM groups must not be used with elements from the xhtml:BlkNoForm.mix group; one can use either elements from xhtml:BlkNoForm.mix or elements from the PHRASE and FORM groups.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>          
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:restriction base="abstractTextType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+                  <xs:group ref="FORM"/>         
+                  <xs:group ref="xhtml:BlkNoForm.mix"/>
+                  <xs:element ref="concept"/>
+                  <xs:element ref="txt"/>
+               </xs:choice>               
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="tableAndTextType" mixed="true">
+      <xs:complexContent>
+         <xs:restriction base="abstractTextType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+                  <xs:group ref="FORM"/>         
+                  <xs:group ref="xhtml:BlkNoForm.mix"/>
+                  <xs:element ref="table"/>               
+               </xs:choice>               
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="materialReferenceType" mixed="true">
+      <xs:complexContent>
+         <xs:restriction base="abstractTextType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+                  <xs:group ref="FORM"/>
+                  <xs:group ref="xhtml:BlkNoForm.mix"/>
+                  <xs:element ref="citation"/>               
+               </xs:choice>               
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="simpleTextAndDateType" mixed="true">
+      <xs:complexContent>
+         <xs:extension base="simpleTextType">
+            <xs:attribute name="date" type="xs:string" use="optional"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="phraseType" mixed="true">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Phrase Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type restricts the simpleTextType to allow for only child elements from the PHRASE content group. It still allows for mixed content (text and child elements).</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:restriction base="simpleTextType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+               </xs:choice>               
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="stringType">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">String Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type restricts the base abstractTextType to only allow for text (i.e. no child elements).</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:restriction base="abstractTextType">
+            <xs:simpleType>
+               <xs:restriction base="xs:string"/>
+            </xs:simpleType>
+         </xs:restriction>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   <xs:complexType name="integerType">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Integer Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type restricts the base abstractTextType to only allow for an integer as text content. No child elements are allowed.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:restriction base="abstractTextType">
+            <xs:simpleType>
+               <xs:restriction base="xs:integer"/>
+            </xs:simpleType>
+         </xs:restriction>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   <xs:simpleType name="dateSimpleType">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Date Simple Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This simple type is a union of the various XML Schema date formats. Using this type, a date can be expressed as a year (YYYY), a year and month (YYYY-MM), a date (YYYY-MM-DD) or a complete date and time (YYYY-MM-DDThh:mm:ss). All of these formats allow for an optional timezone offset to be specified.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:union memberTypes="xs:dateTime xs:date xs:gYearMonth xs:gYear"/>
+   </xs:simpleType>
+   
+   <xs:complexType name="dateType">
+      <xs:annotation>
+         <xs:documentation>
+				<xhtml:div>
+					<xhtml:h1 class="element_title">Date Type</xhtml:h1>
+					<xhtml:div>
+						<xhtml:h2 class="section_header">Description</xhtml:h2>
+						<xhtml:div class="description">This type restricts the base abstractTextType to allow for only the union of types defined in dateSimpleType as text content. No child elements are allowed.</xhtml:div>
+					</xhtml:div>
+				</xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+         <xs:restriction base="abstractTextType">
+            <xs:simpleType>
+               <xs:restriction base="dateSimpleType"/>
+            </xs:simpleType>
+         </xs:restriction>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   <!-- PRHASE Elements -->
+   
+   <xs:group name="PHRASE">
+      <xs:choice>
+         <xs:element ref="ExtLink" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element ref="Link" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:choice>
+   </xs:group>
+
+   <xs:complexType name="ExtLinkType" mixed="true">
+      <xs:complexContent>
+         <xs:extension base="baseElementType">
+            <xs:attribute name="URI" type="xs:string" use="required"/>
+            <xs:attribute name="role" type="xs:string"/>
+            <xs:attribute name="title" type="xs:string"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:element name="ExtLink" type="ExtLinkType">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">External Link</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">This element permits encoders to provide links from any arbitrary element containing ExtLink as a subelement to electronic resources outside the codebook.</xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   
+   <xs:complexType name="LinkType" mixed="true">
+      <xs:complexContent>
+         <xs:extension base="baseElementType">
+            <xs:attribute name="refs" type="xs:IDREFS" use="required"/>
+            <xs:attribute name="role" type="xs:string"/>
+            <xs:attribute name="title" type="xs:string"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:element name="Link" type="LinkType">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">Link</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">This element permits encoders to provide links from any arbitrary element containing Link as a subelement to other elements in the codebook.</xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   
+   <!-- FORM Elements -->
+   
+   <xs:group name="FORM">
+      <xs:choice>
+         <xs:element ref="div"/>
+         <xs:element ref="emph"/>
+         <xs:element ref="head"/>
+         <xs:element ref="hi"/>
+         <xs:element ref="list"/>
+         <xs:element ref="p"/>
+      </xs:choice>
+   </xs:group>
+   
+   <xs:complexType name="formType" mixed="true" abstract="true">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">Form Type</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">This type defines the basis for all elements in the FORM content group. This is derived from the abstractTextType. The content may still be mixed (text and child elements), but the child elements are restricted to be those from the PHRASE and FORM content groups, or the itm and label elements. Further, the possible attributes are restricted. This type is abstract, so specific form elements will further refine this type, but all elements in the FORM content group will conform to this structure and may be processed as such.</xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+         <xs:restriction base="abstractTextType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+                  <xs:group ref="FORM"/>
+                  <xs:element ref="itm"/>
+                  <xs:element ref="label"/>
+               </xs:choice>               
+            </xs:sequence>
+            <xs:attribute name="n" type="xs:string"/>
+            <xs:attribute name="rend" type="xs:string"/>
+            <xs:attribute name="type" type="xs:string"/>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:complexType name="divType">
+      <xs:complexContent>
+         <xs:restriction base="formType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="FORM"/>
+               </xs:choice>               
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="prohibited"/>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:element name="div" type="divType">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">Division</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">Formatting element: marks a subdivision in a text.</xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+
+   <xs:complexType name="emphType" mixed="true">
+      <xs:complexContent>
+         <xs:restriction base="formType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="hi"/>
+                  <xs:element ref="list"/>
+               </xs:choice>               
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="prohibited"/>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:element name="emph" type="emphType">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">Emphasis</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">Formatting element: marks words or phrases that are emphasized for rhetorical effect.</xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   
+   <xs:complexType name="headType" mixed="true">
+      <xs:complexContent>
+         <xs:restriction base="formType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:group ref="PHRASE"/>
+                  <xs:element ref="emph"/>
+                  <xs:element ref="hi"/>
+                  <xs:element ref="list"/>
+               </xs:choice>               
+            </xs:sequence>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:element name="head" type="headType">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">Head</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">Formatting element: marks off a heading to a division, list, etc. </xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   
+   <xs:complexType name="hiType" mixed="true">
+      <xs:complexContent>
+         <xs:restriction base="formType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="emph"/>
+                  <xs:element ref="list"/>
+               </xs:choice>               
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="prohibited"/>
+         </xs:restriction>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   <xs:element name="hi" type="hiType">
+      <xs:annotation>
+         <xs:documentation>
+            <xhtml:div>
+               <xhtml:h1 class="element_title">Highlight</xhtml:h1>
+               <xhtml:div>
+                  <xhtml:h2 class="section_header">Description</xhtml:h2>
+                  <xhtml:div class="description">Formatting element: marks a word or phrase as graphically distinct from the surrounding text, while making no claim for the reasons.</xhtml:div>
+               </xhtml:div>
+            </xhtml:div>
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   
+   <xs:complexType name="listType">
+      <xs:complexContent>
+         <xs:restriction base="formType">
+            <xs:sequence>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element ref="itm"/>
+                  <xs:element ref="label"/>
+               </xs:choice>               
+            </xs:sequence>
+            <xs:attribute name="type" default="simple

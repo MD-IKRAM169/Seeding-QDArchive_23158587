@@ -252,36 +252,102 @@ id,project_id,keyword
 251,43,Terrorism
 252,43,Trade union membership
 253,43,Unemployment
-254,44,Internal politics
-255,45,Political parties
-256,45,Communications
-257,45,Public opinion
-258,45,Mass media
-259,45,Political issues
-260,46,Energy
-261,46,Hours of work
-262,46,Overtime
-263,46,Shift work
-264,47,"Hazards, accidents and disasters"
-265,47,Households
-266,47,Leisure time
-267,47,Sports
-268,48,Age
-269,48,Employment history
-270,48,Health status
-271,48,Job characteristics
-272,48,Job satisfaction
-273,48,Living conditions
-274,48,Pensions
-275,48,Taxation
-276,48,Working conditions
-277,49,Mass media use
-278,49,National identity
-279,49,Political systems
-280,49,Minorities
-281,49,Corruption
-282,49,Social inequality
-283,49,Political efficacy
-284,49,Voting behaviour
-285,49,Political organizations
-286,49,Parliamentary elections
+254,50,pelaaminen
+255,50,pelit
+256,50,pelillistäminen
+257,50,ilmastonmuutokset
+258,50,tartuntataudit
+259,50,ilmastovaikutukset
+260,50,ilmastokriisi
+261,50,virtuaalitodellisuus
+262,50,käyttäytyminen
+263,50,ympäristövaikutukset
+264,50,itsetajunta
+265,50,sitouttaminen
+266,50,climate change
+267,50,environmental changes
+268,50,global warming
+269,50,climate protection
+270,50,bacterial and virus diseases
+271,50,diseases
+272,50,human behaviour
+273,52,Economic policy
+274,52,Political parties
+275,52,Political coalitions
+276,53,Internal politics
+277,54,Political parties
+278,54,Communications
+279,54,Public opinion
+280,54,Mass media
+281,54,Political issues
+282,55,fertility
+283,55,eighteenth century
+284,55,nineteenth century
+285,55,mortality
+286,55,wedding
+287,55,remarriage
+288,57,nuoret
+289,57,lapset (ikäryhmä)
+290,57,vapaa-aika
+291,57,urheilu
+292,57,liikunta
+293,57,harrastukset
+294,57,vapaa-ajantoiminnat
+295,57,sosiaaliset suhteet
+296,57,viestintä
+297,57,adolescents
+298,57,children
+299,57,exercise (physical activity)
+300,57,hobbies
+301,57,interpersonal communication
+302,57,leisure time
+303,57,leisure time activities
+304,57,physical activities
+305,57,social life
+306,57,sport
+307,57,youth
+308,58,nuoret
+309,58,vapaa-aika
+310,58,koulutus
+311,58,harrastukset
+312,58,matkustaminen
+313,58,poliittisuus
+314,58,perhesuhteet
+315,58,päihteet
+316,58,keskinäisviestintä
+317,58,adolescents
+318,58,alcoholism
+319,58,education
+320,58,family life
+321,58,hobbies
+322,58,interpersonal communication
+323,58,leisure time
+324,58,politics
+325,58,travel
+326,59,Energy
+327,59,Hours of work
+328,59,Overtime
+329,59,Shift work
+330,60,"Hazards, accidents and disasters"
+331,60,Households
+332,60,Leisure time
+333,60,Sports
+334,61,Age
+335,61,Employment history
+336,61,Health status
+337,61,Job characteristics
+338,61,Job satisfaction
+339,61,Living conditions
+340,61,Pensions
+341,61,Taxation
+342,61,Working conditions
+343,62,Mass media use
+344,62,National identity
+345,62,Political systems
+346,62,Minorities
+347,62,Corruption
+348,62,Social inequality
+349,62,Political efficacy
+350,62,Voting behaviour
+351,62,Political organizations
+352,62,Parliamentary elections

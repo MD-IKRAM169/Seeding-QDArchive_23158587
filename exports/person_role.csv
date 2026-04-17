@@ -114,20 +114,44 @@ id,project_id,name,role
 113,41,Statistics Austria,AUTHOR
 114,42,Statistics Austria,AUTHOR
 115,43,Sozialwissenschaftliche Studiengesellschaft,AUTHOR
-116,44,GfK Austria,AUTHOR
-117,45,"Kleinen-von Königslöw, Katharina",AUTHOR
-118,45,"Haselmayer, Martin",AUTHOR
-119,45,"Jacobi, Carina",AUTHOR
-120,45,"Eberl, Jakob-Moritz",AUTHOR
-121,45,"Vonbun, Ramona",AUTHOR
-122,45,"Schönbach, Klaus",AUTHOR
-123,45,"Boomgaarden, Hajo G.",AUTHOR
-124,46,Statistics Austria,AUTHOR
-125,47,Statistics Austria,AUTHOR
-126,48,PUMA,AUTHOR
-127,49,"Aichholzer, Julian",AUTHOR
-128,49,"Kritzinger, Sylvia",AUTHOR
-129,49,"Wagner, Markus",AUTHOR
-130,49,"Berk, Nicolai",AUTHOR
-131,49,"Boomgaarden, Hajo",AUTHOR
-132,49,"Müller, Wolfgang C.",AUTHOR
+116,44,"Gurtner, Jean-Luc",AUTHOR
+117,45,"Bisht, Arpita",AUTHOR
+118,46,"Gurtner, Jean-Luc",AUTHOR
+119,47,"Bassand, Michel",AUTHOR
+120,48,"Thevenot, Catherine",AUTHOR
+121,49,"Fahr, Andreas",AUTHOR
+122,50,"Fernández Galeote, Daniel",AUTHOR
+123,50,"Legaki, Nikoletta-Zampeta",AUTHOR
+124,50,"Hamari, Juho",AUTHOR
+125,51,"Staack, Benedict",AUTHOR
+126,52,GfK Austria,AUTHOR
+127,53,GfK Austria,AUTHOR
+128,54,"Kleinen-von Königslöw, Katharina",AUTHOR
+129,54,"Haselmayer, Martin",AUTHOR
+130,54,"Jacobi, Carina",AUTHOR
+131,54,"Eberl, Jakob-Moritz",AUTHOR
+132,54,"Vonbun, Ramona",AUTHOR
+133,54,"Schönbach, Klaus",AUTHOR
+134,54,"Boomgaarden, Hajo G.",AUTHOR
+135,55,"Gehrmann, Rolf",AUTHOR
+136,56,"Metelytsia, Volodymyr",AUTHOR
+137,56,"Gagalyuk, Taras",AUTHOR
+138,56,"Gottlieb, Uliana",AUTHOR
+139,56,"Brosig, Stephan",AUTHOR
+140,57,Nuorisoasiain neuvottelukunta (Nuora),AUTHOR
+141,57,Nuorisotutkimusseura. Nuorisotutkimusverkosto,AUTHOR
+142,57,Advisory Council for Youth Affairs (Nuora),AUTHOR
+143,57,Finnish Youth Research Society. Finnish Youth Research Network,AUTHOR
+144,58,Nuorisoasiain neuvottelukunta (Nuora),AUTHOR
+145,58,Nuorisotutkimusseura. Nuorisotutkimusverkosto,AUTHOR
+146,58,Advisory Council for Youth Affairs (Nuora),AUTHOR
+147,58,Finnish Youth Research Society. Finnish Youth Research Network,AUTHOR
+148,59,Statistics Austria,AUTHOR
+149,60,Statistics Austria,AUTHOR
+150,61,PUMA,AUTHOR
+151,62,"Aichholzer, Julian",AUTHOR
+152,62,"Kritzinger, Sylvia",AUTHOR
+153,62,"Wagner, Markus",AUTHOR
+154,62,"Berk, Nicolai",AUTHOR
+155,62,"Boomgaarden, Hajo",AUTHOR
+156,62,"Müller, Wolfgang C.",AUTHOR

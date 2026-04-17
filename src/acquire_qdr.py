@@ -1,5 +1,7 @@
-import requests
+import time
 from typing import Optional
+
+import requests
 
 from src.config import REPOSITORIES, SEARCH_QUERIES
 from src.db import (
@@ -21,6 +23,8 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (QDArchive project)",
     "Accept": "application/json",
 }
+
+REQUEST_DELAY = 0.5
 
 
 def search_qdr(query: str, limit: int = 10):
@@ -203,40 +207,153 @@ def extract_qdr_authors(details: dict) -> list[tuple[str, str]]:
     return people
 
 
-def dataset_is_restricted(details: dict) -> bool:
-    """
-    Best-effort dataset-level restriction check.
-    """
-    latest = details.get("latestVersion", {})
-    files = latest.get("files", [])
-
-    if not files:
-        return False
-
-    restricted_count = 0
-    visible_count = 0
-
-    for f in files:
-        file_info = f.get("dataFile", {})
-        restricted = f.get("restricted")
-        if restricted is None:
-            restricted = file_info.get("restricted")
-
-        if restricted is True:
-            restricted_count += 1
-        else:
-            visible_count += 1
-
-    # Treat dataset as effectively restricted only if all visible file entries appear restricted
-    return restricted_count > 0 and visible_count == 0
-
-
 def file_is_restricted(file_record: dict) -> bool:
     file_info = file_record.get("dataFile", {})
     restricted = file_record.get("restricted")
     if restricted is None:
         restricted = file_info.get("restricted")
     return restricted is True
+
+
+def dataset_is_fully_restricted(details: dict) -> bool:
+    latest = details.get("latestVersion", {})
+    files = latest.get("files", [])
+
+    if not files:
+        return False
+
+    unrestricted_found = False
+    restricted_found = False
+
+    for f in files:
+        if file_is_restricted(f):
+            restricted_found = True
+        else:
+            unrestricted_found = True
+
+    return restricted_found and not unrestricted_found
+
+
+def get_file_categories(file_record: dict) -> list[str]:
+    categories = []
+
+    for key in ("categories", "dataFileCategories"):
+        value = file_record.get(key)
+        if isinstance(value, list):
+            for item in value:
+                if isinstance(item, str) and item.strip():
+                    categories.append(item.strip())
+
+    file_metadata = file_record.get("fileMetadata", {})
+    if isinstance(file_metadata, dict):
+        value = file_metadata.get("categories")
+        if isinstance(value, list):
+            for item in value:
+                if isinstance(item, str) and item.strip():
+                    categories.append(item.strip())
+
+    # deduplicate
+    clean = []
+    seen = set()
+    for c in categories:
+        lc = c.lower()
+        if lc not in seen:
+            seen.add(lc)
+            clean.append(c)
+    return clean
+
+
+def file_is_documentation(file_record: dict) -> bool:
+    file_info = file_record.get("dataFile", {})
+    filename = (file_info.get("filename") or "").lower()
+    content_type = (file_info.get("contentType") or "").lower()
+    categories = [c.lower() for c in get_file_categories(file_record)]
+
+    doc_name_markers = [
+        "readme", "codebook", "documentation", "appendix",
+        "metadata", "questionnaire", "instrument", "transcript",
+        "interview guide", "methods", "protocol"
+    ]
+
+    if any(marker in filename for marker in doc_name_markers):
+        return True
+
+    if any("documentation" in c or "codebook" in c or "readme" in c for c in categories):
+        return True
+
+    if content_type in {
+        "application/pdf",
+        "text/plain",
+        "text/rtf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    }:
+        return True
+
+    return False
+
+
+def get_file_label(file_record: dict) -> str:
+    file_info = file_record.get("dataFile", {})
+    return file_info.get("filename") or "unknown_file"
+
+
+def get_file_id(file_record: dict) -> Optional[int]:
+    file_info = file_record.get("dataFile", {})
+    file_id = file_info.get("id")
+    return int(file_id) if file_id is not None else None
+
+
+def get_file_type(file_record: dict) -> str:
+    filename = get_file_label(file_record)
+    return get_extension(filename) or "unknown"
+
+
+def classify_download_error(error: Optional[str]) -> str:
+    if not error:
+        return "FAILED_SERVER"
+
+    lowered = error.lower()
+    if (
+        "access denied" in lowered
+        or "401" in lowered
+        or "403" in lowered
+        or "forbidden" in lowered
+        or "unauthorized" in lowered
+        or "login" in lowered
+        or "sign in" in lowered
+    ):
+        return "FAILED_LOGIN"
+
+    return "FAILED_SERVER"
+
+
+def is_open_license_text(text: Optional[str]) -> bool:
+    if not text:
+        return False
+
+    lowered = text.lower()
+    open_markers = [
+        "creative commons",
+        "cc-by",
+        "cc by",
+        "cc-by-sa",
+        "cc by-sa",
+        "cc0",
+        "public domain",
+        "open data commons",
+    ]
+    return any(marker in lowered for marker in open_markers)
+
+
+def sort_files_for_download(files: list[dict]) -> list[dict]:
+    def score(file_record: dict) -> tuple[int, int, str]:
+        restricted_score = 1 if file_is_restricted(file_record) else 0
+        documentation_score = 0 if file_is_documentation(file_record) else 1
+        name = get_file_label(file_record).lower()
+        return (restricted_score, documentation_score, name)
+
+    return sorted(files, key=score)
 
 
 def process_dataset(item, query):
@@ -264,33 +381,38 @@ def process_dataset(item, query):
     project_dir = repo["download_folder"] / project_folder_name
     ensure_dir(project_dir)
 
+    # Important: avoid duplicate file rows on rerun
     if project_exists(project_url):
-        project_id = get_project_id_by_url(project_url)
-        if project_id is None:
-            return
+        print(f"  Already stored: {title[:80]}")
+        return
+
+    # Better download method label
+    if is_open_license_text(license_value):
+        download_method = "API_PUBLIC_OPEN"
     else:
-        project_id = insert_project(
-            query_string=query,
-            repository_id=repo["id"],
-            repository_url=repo["url"],
-            project_url=project_url,
-            version=None,
-            title=title,
-            description=description,
-            language=language,
-            doi=global_id,
-            upload_date=upload_date,
-            download_repository_folder="qdr",
-            download_project_folder=project_folder_name,
-            download_version_folder=None,
-            download_method="API",
-        )
+        download_method = "API_PUBLIC_OR_RESTRICTED"
 
-        insert_keywords(project_id, keywords)
-        insert_person_roles(project_id, people if people else [("UNKNOWN", "UNKNOWN")])
-        insert_license(project_id, license_value if license_value else "UNKNOWN")
+    project_id = insert_project(
+        query_string=query,
+        repository_id=repo["id"],
+        repository_url=repo["url"],
+        project_url=project_url,
+        version=None,
+        title=title,
+        description=description,
+        language=language,
+        doi=global_id,
+        upload_date=upload_date,
+        download_repository_folder="qdr",
+        download_project_folder=project_folder_name,
+        download_version_folder=None,
+        download_method=download_method,
+    )
 
-    # If a dataset has no files at all, record that clearly
+    insert_keywords(project_id, keywords)
+    insert_person_roles(project_id, people if people else [("UNKNOWN", "UNKNOWN")])
+    insert_license(project_id, license_value if license_value else "UNKNOWN")
+
     if not files:
         insert_file(
             project_id=project_id,
@@ -300,33 +422,33 @@ def process_dataset(item, query):
         )
         return
 
-    # If all files are flagged restricted, avoid repeated useless download attempts
-    if dataset_is_restricted(details):
+    if dataset_is_fully_restricted(details):
         for f in files:
-            file_info = f.get("dataFile", {})
-            filename = file_info.get("filename") or "restricted_file"
+            filename = get_file_label(f)
             insert_file(
                 project_id=project_id,
                 file_name=filename,
-                file_type=get_extension(filename) or "unknown",
+                file_type=get_file_type(f),
                 status="FAILED_LOGIN",
             )
         return
 
-    for f in files:
-        file_info = f.get("dataFile", {})
-        file_id = file_info.get("id")
-        filename = file_info.get("filename")
+    success_count = 0
+    sorted_files = sort_files_for_download(files)
+
+    for f in sorted_files:
+        file_id = get_file_id(f)
+        filename = get_file_label(f)
 
         if not file_id or not filename:
             continue
 
-        # Respect explicit restriction flags from metadata
+        # Respect explicit restriction flags
         if file_is_restricted(f):
             insert_file(
                 project_id=project_id,
                 file_name=filename,
-                file_type=get_extension(filename) or "unknown",
+                file_type=get_file_type(f),
                 status="FAILED_LOGIN",
             )
             continue
@@ -336,19 +458,26 @@ def process_dataset(item, query):
 
         success, _, _, error = download_file(download_url, local_path)
 
-        if success:
-            status = "SUCCEEDED"
-        else:
-            if error and ("Access denied" in error or "HTTP 401" in error or "HTTP 403" in error):
-                status = "FAILED_LOGIN"
-            else:
-                status = "FAILED_SERVER"
+        status = "SUCCEEDED" if success else classify_download_error(error)
 
         insert_file(
             project_id=project_id,
             file_name=filename,
-            file_type=get_extension(filename) or "unknown",
+            file_type=get_file_type(f),
             status=status,
+        )
+
+        if success:
+            success_count += 1
+
+        time.sleep(REQUEST_DELAY)
+
+    if success_count == 0:
+        insert_file(
+            project_id=project_id,
+            file_name="metadata_only",
+            file_type="metadata",
+            status="FAILED_SERVER",
         )
 
 

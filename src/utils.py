@@ -30,6 +30,58 @@ def filename_from_url(url: str, default: str = "downloaded_file") -> str:
     return name if name else default
 
 
+# ------------------------------
+# NEW: Content validation helpers
+# ------------------------------
+
+def looks_like_html(content_type: Optional[str], first_chunk: bytes) -> bool:
+    ctype = (content_type or "").lower()
+
+    if "text/html" in ctype or "application/xhtml+xml" in ctype:
+        return True
+
+    sample = first_chunk[:1000].lower()
+
+    return (
+        sample.startswith(b"<!doctype html")
+        or sample.startswith(b"<html")
+        or b"<html" in sample
+        or b"<body" in sample
+        or b"login" in sample[:300]
+        or b"sign in" in sample[:300]
+    )
+
+
+def looks_like_file(content_type: Optional[str], url: str) -> bool:
+    ctype = (content_type or "").lower()
+    path = urlparse(url.lower()).path
+
+    # Known file content types
+    if any(x in ctype for x in [
+        "application/pdf",
+        "application/zip",
+        "application/octet-stream",
+        "text/csv",
+        "application/json",
+        "application/xml",
+        "text/plain",
+        "image/",
+        "audio/",
+        "video/",
+    ]):
+        return True
+
+    # File extension fallback
+    if Path(path).suffix:
+        return True
+
+    return False
+
+
+# ------------------------------
+# FIXED download function
+# ------------------------------
+
 def download_file(
     url: str,
     destination: Path,
@@ -41,8 +93,10 @@ def download_file(
         (success, mime_type, file_size_bytes, error_message)
     """
     try:
-        with requests.get(url, stream=True, timeout=timeout) as response:
-            if response.status_code == 401 or response.status_code == 403:
+        with requests.get(url, stream=True, timeout=timeout, allow_redirects=True) as response:
+
+            # --- STATUS CHECK ---
+            if response.status_code in (401, 403):
                 return False, None, None, f"Access denied: HTTP {response.status_code}"
 
             if response.status_code >= 400:
@@ -52,9 +106,31 @@ def download_file(
             content_length = response.headers.get("Content-Length")
             file_size = int(content_length) if content_length and content_length.isdigit() else None
 
+            # --- READ FIRST CHUNK (IMPORTANT) ---
+            first_chunk = b""
+            chunks = []
+
+            for chunk in response.iter_content(chunk_size=chunk_size):
+                if chunk:
+                    if not first_chunk:
+                        first_chunk = chunk
+                    chunks.append(chunk)
+                    break
+
+            # --- VALIDATION ---
+            if looks_like_html(content_type, first_chunk):
+                return False, content_type, file_size, "Received HTML page instead of file"
+
+            if not looks_like_file(content_type, url):
+                return False, content_type, file_size, "Not a valid file type"
+
+            # --- SAVE FILE ---
             ensure_dir(destination.parent)
 
             with open(destination, "wb") as f:
+                if first_chunk:
+                    f.write(first_chunk)
+
                 for chunk in response.iter_content(chunk_size=chunk_size):
                     if chunk:
                         f.write(chunk)

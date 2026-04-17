@@ -8,7 +8,7 @@
 
 ---
 
-# Introduction
+# Project Overview
 
 This project is part of the *Seeding QDArchive* initiative.  
 The goal is to automatically collect qualitative research datasets from public repositories and store them in a structured database.
@@ -24,7 +24,7 @@ This project provides the **foundation for QDArchive**, a platform for sharing q
 
 ---
 
-# Objectives of the Project
+# Project Goal
 
 - Discover qualitative datasets  
 - Download QDA and associated files  
@@ -34,7 +34,7 @@ This project provides the **foundation for QDArchive**, a platform for sharing q
 
 ---
 
-# Data Sources Used
+# Assigned Repositories
 
 | # | Repository | URL | Method |
 |--|------------|-----|--------|
@@ -43,9 +43,9 @@ This project provides the **foundation for QDArchive**, a platform for sharing q
 
 ---
 
-# Query Design Strategy
+# Search Strategy
 
-### General Search Terms
+### General Queries
 - qualitative  
 - qualitative research  
 - interview  
@@ -53,7 +53,7 @@ This project provides the **foundation for QDArchive**, a platform for sharing q
 - focus group  
 - ethnography  
 
-### QDA-Oriented Search Terms
+### QDA-Specific Queries
 - qdpx  
 - nvivo / nvpx  
 - maxqda / mqda  
@@ -62,7 +62,7 @@ These queries aim to detect datasets containing **qualitative data analysis (QDA
 
 ---
 
-# Data Acquisition Workflow
+# Acquisition Approach
 
 ## QDR Pipeline
 
@@ -105,7 +105,7 @@ python -m src.csv_export
 
 ---
 
-# Data Storage Design
+# Database Structure
 
 Database: `23158587-seeding.db`
 
@@ -117,7 +117,7 @@ Database: `23158587-seeding.db`
 | person_role | Authors and contributors      |
 | licenses    | License or access information |
 
-### File Status Categories
+### File Status
 
 * `SUCCEEDED`
 * `FAILED_LOGIN`
@@ -149,7 +149,7 @@ Database: `23158587-seeding.db`
 
 ---
 
-#  Observed Limitations
+#  Limitations
 
 ## 1. Restricted Data Access (Major Issue)
 
@@ -198,7 +198,7 @@ Most failures due to:
 
 ---
 
-# Implementation Challenges
+# Technical Challenges
 
 ## Data Challenges
 
@@ -242,7 +242,7 @@ Most failures due to:
 
 ---
 
-# Insights Gained
+# Key Findings
 
 * QDA files are extremely rare in public repositories
 * Most datasets provide raw data, not analysis files
@@ -286,7 +286,7 @@ QDArchive/
 
 ---
 
-# Final Remarks
+# Conclusion
 
 This project successfully demonstrates:
 
