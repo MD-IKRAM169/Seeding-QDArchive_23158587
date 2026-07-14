@@ -1,4 +1,4 @@
-# QDArchive Seeding Project — Part 1: Data Acquisition
+# QDArchive Seeding Project
 
 ## Author
 
