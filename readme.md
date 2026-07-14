@@ -9,7 +9,7 @@
 
 ---
 
-## Project Overview
+## Project Overview — Part1: Data Acquisition
 
 This project is part of the **Seeding QDArchive initiative**, aiming to build an automated pipeline for collecting qualitative research datasets from public repositories.
 
@@ -129,8 +129,6 @@ SQLite Database: `23158587-seeding.db`
 * External links often require login or are not directly downloadable
 
 ### 3. Lack of QDA Files
-
-* No QDA project files found
 * Indicates limited sharing of analysis-level data
 
 ### 4. High Failure Rate
@@ -198,6 +196,13 @@ QDArchive/
 
 * `23158587-seeding.db` (included in repository root)
 
+---
+
+### Downloaded Files
+
+The downloaded dataset files are **not stored in the repository** due to size constraints.
+
+---
 
 ### External Access (FAUbox)
 
@@ -207,7 +212,7 @@ The downloaded dataset files are available here:
 
 ---
 
-## SQ26 Validation Result
+## ✅ SQ26 Validation Result
 
 The SQLite database was validated using the official SQ26 submission validator.
 
@@ -231,13 +236,286 @@ This confirms that the database fully complies with the required SQ26 schema and
 
 ---
 
+# QDArchive Seeding Project — Part 2: Classification
+## Classification Database
+
+Part 2 uses a separate SQLite database: 23158587-sq26-classification.db
+
+The classification database extends the acquired Part 1 data with classification information.
+
+Important Part 2 fields include:
+```
+projects.type
+projects.class
+files.class
+```
+
+# Step 1 — Project Type Classification
+Every project is assigned one of four project types:
+
+```
+QDA_PROJECT
+QD_PROJECT
+OTHER_PROJECT
+NOT_A_PROJECT
+```
+
+The classification hierarchy is:
+```
+Known QDA file exists
+        ↓
+QDA_PROJECT
+
+Otherwise, primary qualitative data exists
+        ↓
+QD_PROJECT
+
+Otherwise, another valid project data file exists
+        ↓
+OTHER_PROJECT
+
+Otherwise
+        ↓
+NOT_A_PROJECT
+```
+# Project Type Results
+# Repository 1 — QDR
+| Project Type  | Count |
+| ------------- | ----: |
+| `QDA_PROJECT` |     2 |
+| `QD_PROJECT`  |    14 |
+
+# Repository 2 — CESSDA
+| Project Type    | Count |
+| --------------- | ----: |
+| `QD_PROJECT`    |    16 |
+| `OTHER_PROJECT` |    21 |
+| `NOT_A_PROJECT` |     9 |
+
+Total: 62 projects classified by PROJECT_TYPE
+
+# ISIC Rev. 5 Classification
+## Taxonomy
+The project classifier uses: ISIC Rev. 5 at the division level.
+
+A total of: 87 ISIC Rev. 5 divisions were imported from the professor-provided ISIC workbook.
+
+# Classification Input
+For every QDA_PROJECT and QD_PROJECT, classification input is prepared from:
+```
+project title;
+project description;
+keywords;
+selected useful primary file names;
+extractable content from successfully downloaded primary files.
+```
+
+The prepared input is stored in the classification database.
+
+Relevant projects classified: 32
+
+Breakdown:
+| Repository | Project Type  | Projects |
+| ---------- | ------------- | -------: |
+| QDR        | `QDA_PROJECT` |        2 |
+| QDR        | `QD_PROJECT`  |       14 |
+| CESSDA     | `QD_PROJECT`  |       16 |
+
+# Project-Level ISIC Classifier
+The project-level classifier uses a weighted hybrid TF-IDF approach.
+
+Evidence fields include:
+```
+title;
+description;
+keywords;
+extracted file content;
+useful file names.
+```
+
+Generic academic words such as research, study, data, and analysis are reduced as classification evidence so that the classifier focuses more strongly on the actual domain of the project.
+
+The classifier combines:
+
+- word-level TF-IDF similarity;
+- character-level TF-IDF similarity.
+
+The final project-level classification result is stored in: projects.class
+Detailed results are stored in: project_classifications
+
+# Project Classification Results
+All relevant projects received an ISIC Rev. 5 division:
+- Classified projects: 32
+- Relevant projects without class: 0
+
+Project confidence:
+| Confidence | Count |
+| ---------- | ----: |
+| `MEDIUM`   |    16 |
+| `LOW`      |    16 |
+No artificial confidence inflation is applied. Ambiguous results remain explicitly marked as low confidence.
+
+# Examples of Frequent Project Classes
+Examples of identified ISIC divisions include:
+
+R86 — Human health activities
+O78 — Employment activities
+Q85 — Education
+G47 — Retail trade
+R87 — Residential care activities
+T94 — Activities of membership organizations
+
+The classification distribution is intentionally diverse and no longer dominated by generic N72 — Scientific research and development assignments.
+
+# Primary File Classification
+A total of: 3,724 primary file records were processed.
+The final strategy distinguishes between two evidence modes.
+# 1. Independent Content Classification
+When actual extractable file content is available: INDEPENDENT_CONTENT_CLASSIFICATION
+
+The classifier uses:
+
+- actual file content;
+- filename;
+- project context.
+
+Number of independently classified files: 87
+
+# 2. Project Class Fallback
+When actual file content is unavailable: PROJECT_CLASS_FALLBACK.
+
+Number of fallback classifications:3,637
+
+This prevents weak filenames or inaccessible files from receiving misleading independent classifications.
+
+Detailed file classification information is stored in: file_classifications.
+
+The primary class is also stored in: files.class
+
+# File Classification Results
+- Primary files processed: 3,724
+- Independent content classifications: 87
+- Project-class fallbacks: 3,637
+- Classified files without files.class: 0
+
+# Classification Validation
+- Total projects: 62
+- Relevant classified projects: 32
+- Project classification rows: 32
+- Primary file classifications: 3724
+- ISIC Rev. 5 divisions: 87
+
+# Required Classification Deliverables
+## SQLite Database: 
+23158587-sq26-classification.db
+
+## XLSX Results: 
+exports/23158587-sq26-classification-results.xlsx
+
+## PDF Classification Report: 
+exports/23158587-sq26-classification-report.pdf
+
+# Important Classification Findings
+## QDR — QDA_PROJECT
+- 2 projects
+- 2 distinct primary ISIC classes
+
+## QDR — QD_PROJECT
+- 14 projects
+- 12 distinct primary ISIC classes
+most frequent class: R86 — Human health activities
+
+## CESSDA — QD_PROJECT
+- 16 projects
+- 12 distinct primary ISIC classes
+most frequent classes include:
+- O78 — Employment activities
+- Q85 — Education
+
+The results indicate considerable domain diversity across the collected qualitative research projects.
+
+# Project Structure
+## Project Structure
+
+```
+Seeding-QDArchive_23158587/
+|
+|── src/
+|   |── acquire_qdr.py
+|   |── acquire_cessda.py
+|   |── run_all.py
+|   |── csv_export.py
+|   |── prepare_classification_db.py
+|   |── add_classification_columns.py
+|   |── classify_project_types.py
+|   |── import_isic_taxonomy.py
+|   |── prepare_classification_input.py
+|   |── classify_isic_projects.py
+|   |── classify_isic_files.py
+|   |── fix_file_classification_schema.py
+|   |── validate_classification_results.py
+|   |── export_classification_xlsx.py
+|   └── generate_classification_report.py
+|
+|── exports/
+|   |── projects.csv
+|   |── files.csv
+|   |── keywords.csv
+|   |── person_role.csv
+|   |── licenses.csv
+|   |── 23158587-sq26-classification-results.xlsx
+|   └── 23158587-sq26-classification-report.pdf
+|
+|── my_downloads/
+|
+|── schema-definition/
+|── validator/
+|
+|── 23158587-seeding.db
+|── 23158587-sq26-classification.db
+|── ISIC5_Exp_Notes_11Mar2024.xlsx
+|── README.md
+|── requirements.txt
+└── LICENSE
+```
+
+## Key Findings
+
+- QDA file records were found, including `.qdpx` and `.nvpx`.
+- QDA projects are relatively rare compared with the full collected dataset.
+- Access restrictions are a major barrier to downloading qualitative research files.
+- QDR contains both QDA and qualitative-data projects.
+- CESSDA provides useful metadata but many records do not expose directly usable files.
+- 32 projects were classified with ISIC Rev. 5 at division level.
+- 3,724 primary file records were processed for file-level classification.
+- Only 87 files had sufficient extractable content for independent classification.
+- 3,637 files use transparent project-class fallback rather than unreliable filename-based guesses.
+- The final report includes three repository/project-type distributions.
+
+## Limitations
+
+The main limitations are:
+
+- many QDR files require authentication;
+- some CESSDA records are metadata-oriented;
+- not every file can be downloaded;
+- not every successful download contains extractable text;
+- project and file classifications can be uncertain when metadata or content is limited;
+- low-confidence classifications should be interpreted cautiously;
+- fallback file classifications are inherited from the project and are explicitly marked as such.
+
+---
+
 ## Conclusion
 
-This project demonstrates:
+This project demonstrates a complete automated workflow for:
 
-* A working **data acquisition pipeline** for qualitative research
-* Integration of **API + OAI-PMH sources**
-* Structured storage of metadata and files
-* Transparent handling of access limitations
-
-Despite constraints, it provides a **solid foundation for building QDArchive**.
+- qualitative research data acquisition;
+- structured SQLite metadata storage;
+- QDA project identification;
+- project-type classification;
+- ISIC Rev. 5 project classification;
+- primary file classification;
+- repository-specific statistics;
+- XLSX export;
+- PDF report generation.
