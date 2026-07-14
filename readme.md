@@ -370,17 +370,18 @@ Project confidence:
 | `LOW`      |    16 |
 No artificial confidence inflation is applied. Ambiguous results remain explicitly marked as low confidence.
 
-# Examples of Frequent Project Classes
+## Examples of Frequent Project Classes
+
 Examples of identified ISIC divisions include:
 
-R86 — Human health activities
-O78 — Employment activities
-Q85 — Education
-G47 — Retail trade
-R87 — Residential care activities
-T94 — Activities of membership organizations
+- `R86` — Human health activities
+- `O78` — Employment activities
+- `Q85` — Education
+- `G47` — Retail trade
+- `R87` — Residential care activities
+- `T94` — Activities of membership organizations
 
-The classification distribution is intentionally diverse and no longer dominated by generic N72 — Scientific research and development assignments.
+The classification distribution is intentionally diverse and no longer dominated by generic `N72 — Scientific research and development` assignments.
 
 # Primary File Classification
 A total of: 3,724 primary file records were processed.
