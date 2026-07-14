@@ -9,9 +9,24 @@
 
 ---
 
-## Project Overview — Part1: Data Acquisition
+## Full Project Overview
 
-This project is part of the **Seeding QDArchive initiative**, aiming to build an automated pipeline for collecting qualitative research datasets from public repositories.
+This project implements a complete automated workflow for acquiring, organizing, classifying, and reporting qualitative research datasets as part of the Seeding QDArchive project.
+
+The work is divided into two main parts:
+
+Part 1 — Data Acquisition focuses on automatically collecting project metadata and file information from the two assigned repositories: the Qualitative Data Repository (QDR / Syracuse) and the CESSDA Data Catalogue. The acquisition pipeline searches for qualitative and QDA-related projects, downloads publicly accessible files when available, records restricted or failed download attempts, extracts metadata such as titles, descriptions, keywords, people, roles, and license information, and stores the collected results in a structured SQLite database.
+
+Part 2 — Classification extends the acquired database by classifying every project into one of four project types: QDA_PROJECT, QD_PROJECT, OTHER_PROJECT, or NOT_A_PROJECT. Relevant QDA_PROJECT and QD_PROJECT records are then classified according to ISIC Rev. 5 at the division level using project metadata, keywords, file names, and available extractable file content. Primary data files are also classified individually when direct content is available, while files without sufficient independent content use a transparent project-class fallback.
+
+The final workflow produces a complete set of outputs, including the classification SQLite database, an XLSX results file, repository- and project-type-specific statistics, vector-based classification histograms, ranked top-class tables, and a PDF report.
+
+Overall, the project demonstrates an end-to-end pipeline covering automated data acquisition, database construction, QDA project detection, project-type classification, ISIC Rev. 5 categorization, primary-file classification, validation, statistical analysis, and final result reporting.
+
+
+# Part1: Data Acquisition
+
+This is part of the **Seeding QDArchive initiative**, aiming to build an automated pipeline for collecting qualitative research datasets from public repositories.
 
 The system:
 
