@@ -23,21 +23,11 @@ from src.classify_isic_projects import (
     remove_generic_academic_words,
 )
 
-
-# ============================================================
-# PATHS
-# ============================================================
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 CLASSIFICATION_DB = (
     PROJECT_ROOT / "23158587-sq26-classification.db"
 )
-
-
-# ============================================================
-# WEIGHTS FOR FILES WITH REAL CONTENT
-# ============================================================
 
 FILE_CONTENT_WEIGHT = 0.70
 FILE_NAME_WEIGHT = 0.20
@@ -46,18 +36,9 @@ PROJECT_CONTEXT_WEIGHT = 0.10
 WORD_MODEL_WEIGHT = 0.80
 CHAR_MODEL_WEIGHT = 0.20
 
-
-# ============================================================
-# SECONDARY CLASS SETTINGS
-# ============================================================
-
 MIN_SECONDARY_SCORE = 0.035
 SECONDARY_RATIO = 0.82
 
-
-# ============================================================
-# CONFIDENCE SETTINGS
-# ============================================================
 
 LOW_ABSOLUTE_SCORE = 0.025
 HIGH_ABSOLUTE_SCORE = 0.12
@@ -65,10 +46,6 @@ HIGH_ABSOLUTE_SCORE = 0.12
 LOW_RELATIVE_MARGIN = 0.08
 HIGH_RELATIVE_MARGIN = 0.25
 
-
-# ============================================================
-# DATABASE TABLE
-# ============================================================
 
 def create_file_classification_table(
     conn: sqlite3.Connection,
@@ -113,10 +90,6 @@ def create_file_classification_table(
         """
     )
 
-
-# ============================================================
-# PROJECT CONTEXT
-# ============================================================
 
 def get_project_keywords(
     conn: sqlite3.Connection,
@@ -186,24 +159,11 @@ def build_project_context(
     )
 
 
-# ============================================================
-# LOAD PRIMARY FILE RECORDS
-# ============================================================
-
 def load_primary_files(
     conn: sqlite3.Connection,
     file_index: dict[str, list[Path]],
 ) -> list[dict[str, object]]:
-    """
-    Prepare all primary files from QDA_PROJECT and QD_PROJECT.
-
-    Files with real extractable content will later be classified
-    independently.
-
-    Files without real content will inherit the already assigned
-    project ISIC class.
-    """
-
+   
     rows = conn.execute(
         """
         SELECT
@@ -366,11 +326,6 @@ def load_primary_files(
 
     return prepared_files
 
-
-# ============================================================
-# TF-IDF SIMILARITY
-# ============================================================
-
 def calculate_similarity(
     evidence_texts: list[str],
     class_texts: list[str],
@@ -450,24 +405,11 @@ def calculate_similarity(
         * char_similarity
     )
 
-
-# ============================================================
-# CLASSIFY CONTENT-AVAILABLE FILES
-# ============================================================
-
 def build_content_file_similarity_matrix(
     class_profiles: list[dict[str, str]],
     content_files: list[dict[str, object]],
 ):
-    """
-    Classify only files with actual extracted content.
-
-    Final score:
-    70% actual file content
-    20% filename
-    10% project context
-    """
-
+    
     class_texts = [
         profile["profile_text"]
         for profile in class_profiles
@@ -574,10 +516,6 @@ def build_content_file_similarity_matrix(
 
     return final_similarity
 
-
-# ============================================================
-# RESULT SELECTION
-# ============================================================
 
 def determine_confidence(
     primary_score: float,
@@ -722,11 +660,6 @@ def choose_independent_classes(
 
     return result
 
-
-# ============================================================
-# PROJECT FALLBACK RESULT
-# ============================================================
-
 def build_project_fallback_result(
     file_info: dict[str, object],
     class_lookup: dict[str, str],
@@ -771,11 +704,6 @@ def build_project_fallback_result(
             "INHERITED"
         ),
     }
-
-
-# ============================================================
-# STORE RESULT
-# ============================================================
 
 def store_result(
     conn: sqlite3.Connection,
@@ -921,11 +849,6 @@ def store_result(
         ),
     )
 
-
-# ============================================================
-# VERIFICATION
-# ============================================================
-
 def verify_results(
     conn: sqlite3.Connection,
     expected_count: int,
@@ -983,10 +906,6 @@ def verify_results(
         f"{missing_class_count}"
     )
 
-
-# ============================================================
-# SUMMARY
-# ============================================================
 
 def show_summary(
     conn: sqlite3.Connection,
@@ -1168,10 +1087,6 @@ def show_summary(
             f" | {title}"
         )
 
-
-# ============================================================
-# MAIN
-# ============================================================
 
 def main() -> None:
     """
