@@ -24,7 +24,7 @@ The final workflow produces a complete set of outputs, including the classificat
 Overall, the project demonstrates an end-to-end pipeline covering **automated data acquisition, database construction, QDA project detection, project-type classification, ISIC Rev. 5 categorization, primary-file classification, validation, statistical analysis, and final result reporting.**
 
 
-# Part1: Data Acquisition
+# Part 1: Data Acquisition
 
 This is part of the **Seeding QDArchive initiative**, aiming to build an automated pipeline for collecting qualitative research datasets from public repositories.
 
