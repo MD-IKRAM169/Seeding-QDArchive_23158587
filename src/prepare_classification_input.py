@@ -10,11 +10,6 @@ import sqlite3
 import xml.etree.ElementTree as ET
 import zipfile
 
-
-# ============================================================
-# PATHS
-# ============================================================
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 CLASSIFICATION_DB = (
@@ -23,25 +18,11 @@ CLASSIFICATION_DB = (
 
 DOWNLOAD_ROOT = PROJECT_ROOT / "my_downloads"
 
-
-# ============================================================
-# LIMITS
-# ============================================================
-
-# Maximum text extracted from one file.
 MAX_CHARS_PER_FILE = 20_000
 
-# Maximum total extracted file content for one project.
 MAX_FILE_TEXT_PER_PROJECT = 100_000
 
-# Maximum number of unique filenames supplied to the classifier.
-# The true primary_file_count is still preserved separately.
 MAX_FILE_NAMES_PER_PROJECT = 100
-
-
-# ============================================================
-# PRIMARY DATA EXTENSIONS
-# ============================================================
 
 PRIMARY_DATA_EXTENSIONS = {
     # Text and documents
@@ -91,10 +72,6 @@ PRIMARY_DATA_EXTENSIONS = {
 }
 
 
-# ============================================================
-# TEXT-EXTRACTABLE EXTENSIONS
-# ============================================================
-
 TEXT_EXTENSIONS = {
     ".txt",
     ".rtf",
@@ -113,24 +90,11 @@ PDF_EXTENSIONS = {
     ".pdf",
 }
 
-
-# ============================================================
-# METADATA-ONLY FILES
-# ============================================================
-
-# Files created or collected as metadata exports by the
-# implemented CESSDA workflow. They must not be treated as
-# primary research content.
-
 METADATA_ONLY_FILE_NAMES = {
     "export.xml",
     "export.json",
 }
 
-
-# ============================================================
-# OPTIONAL PDF SUPPORT
-# ============================================================
 
 try:
     from pypdf import PdfReader
@@ -144,10 +108,6 @@ except ImportError:
     PdfReader = None
     PDF_SUPPORT_AVAILABLE = False
 
-
-# ============================================================
-# DATABASE TABLE
-# ============================================================
 
 def create_classification_inputs_table(
     conn: sqlite3.Connection,
@@ -173,10 +133,6 @@ def create_classification_inputs_table(
         """
     )
 
-
-# ============================================================
-# TEXT CLEANING
-# ============================================================
 
 def clean_text(
     value: str | None,
@@ -216,10 +172,6 @@ def truncate_text(
 
     return text[:max_chars]
 
-
-# ============================================================
-# FILE HELPERS
-# ============================================================
 
 def normalize_extension(
     file_name: str | None,
@@ -268,11 +220,6 @@ def is_metadata_only_file(
         normalized_name
         in METADATA_ONLY_FILE_NAMES
     )
-
-
-# ============================================================
-# LOCAL FILE INDEX
-# ============================================================
 
 def build_local_file_index() -> dict[str, list[Path]]:
     """
@@ -346,18 +293,7 @@ def find_local_file(
     file_index: dict[str, list[Path]],
     project_folder_hints: list[str],
 ) -> Path | None:
-    """
-    Find the safest matching local downloaded file.
-
-    Rules:
-    1. No matches -> None.
-    2. Exactly one match -> use it.
-    3. Multiple matches -> prefer one matching the project's
-       recorded folder information.
-    4. If still ambiguous -> return None rather than use
-       potentially incorrect content from another project.
-    """
-
+    
     if not file_name:
         return None
 
@@ -399,11 +335,6 @@ def find_local_file(
     # Do not guess when several files with identical names
     # remain ambiguous.
     return None
-
-
-# ============================================================
-# TEXT EXTRACTION
-# ============================================================
 
 def read_text_file(
     file_path: Path,
@@ -633,11 +564,6 @@ def extract_file_text(
     # and unsupported binary formats are not extracted here.
     return ""
 
-
-# ============================================================
-# METADATA
-# ============================================================
-
 def get_project_keywords(
     conn: sqlite3.Connection,
     project_id: int,
@@ -708,11 +634,6 @@ def build_metadata_text(
         )
 
     return "\n".join(sections)
-
-
-# ============================================================
-# PREPARE ONE PROJECT
-# ============================================================
 
 def prepare_project_input(
     conn: sqlite3.Connection,
@@ -920,10 +841,6 @@ def prepare_project_input(
     }
 
 
-# ============================================================
-# STORE RESULT
-# ============================================================
-
 def store_project_input(
     conn: sqlite3.Connection,
     result: dict[str, object],
@@ -970,10 +887,6 @@ def store_project_input(
         ),
     )
 
-
-# ============================================================
-# VERIFICATION
-# ============================================================
 
 def verify_results(
     conn: sqlite3.Connection,
@@ -1071,10 +984,6 @@ def show_summary(
             f"{extracted_files or 0}"
         )
 
-
-# ============================================================
-# MAIN
-# ============================================================
 
 def main() -> None:
     """
