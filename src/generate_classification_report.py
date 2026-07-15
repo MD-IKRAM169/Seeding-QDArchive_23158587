@@ -25,11 +25,6 @@ from reportlab.platypus import (
     TableStyle,
 )
 
-
-# ============================================================
-# PATHS
-# ============================================================
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 CLASSIFICATION_DB = (
@@ -43,11 +38,6 @@ OUTPUT_PDF = (
     / "23158587-sq26-classification-report.pdf"
 )
 
-
-# ============================================================
-# PAGE SETTINGS
-# ============================================================
-
 PAGE_SIZE = landscape(A4)
 
 PAGE_WIDTH, PAGE_HEIGHT = PAGE_SIZE
@@ -56,11 +46,6 @@ LEFT_MARGIN = 1.5 * cm
 RIGHT_MARGIN = 1.5 * cm
 TOP_MARGIN = 1.5 * cm
 BOTTOM_MARGIN = 1.5 * cm
-
-
-# ============================================================
-# HELPERS
-# ============================================================
 
 def safe_text(
     value: object | None,
@@ -106,10 +91,6 @@ def print_header(
     print(title)
     print("=" * 78)
 
-
-# ============================================================
-# DATABASE QUERIES
-# ============================================================
 
 def get_repository_project_type_groups(
     conn: sqlite3.Connection,
@@ -326,10 +307,6 @@ def get_confidence_counts(
     }
 
 
-# ============================================================
-# STYLES
-# ============================================================
-
 def build_styles():
     """
     Create PDF paragraph styles.
@@ -407,10 +384,6 @@ def build_styles():
         ),
     }
 
-
-# ============================================================
-# VECTOR CHART
-# ============================================================
 
 def create_bar_chart(
     distribution: list[tuple[str, str, int]],
@@ -579,10 +552,6 @@ def create_bar_chart(
 
     return drawing
 
-
-# ============================================================
-# TABLES
-# ============================================================
 
 def create_project_type_table(
     counts: list[tuple[str, int]],
@@ -819,11 +788,6 @@ def create_top20_table(
 
     return table
 
-
-# ============================================================
-# COMMENTS
-# ============================================================
-
 def create_comments(
     repo_label: str,
     project_type: str,
@@ -905,10 +869,6 @@ def create_comments(
     return comments
 
 
-# ============================================================
-# PAGE FOOTER
-# ============================================================
-
 def draw_page_number(
     canvas,
     document,
@@ -938,10 +898,6 @@ def draw_page_number(
 
     canvas.restoreState()
 
-
-# ============================================================
-# BUILD REPORT
-# ============================================================
 
 def build_report(
     conn: sqlite3.Connection,
@@ -999,9 +955,6 @@ def build_report(
 
     story = []
 
-    # --------------------------------------------------------
-    # TITLE PAGE
-    # --------------------------------------------------------
 
     story.append(
         Spacer(
@@ -1259,9 +1212,7 @@ def build_report(
                 )
             )
 
-        # Start next distribution cleanly unless next group
-        # belongs to a new repository, which will handle its
-        # own page break above.
+       
         if group_index < len(groups) - 1:
 
             next_repository_id = (
@@ -1282,10 +1233,6 @@ def build_report(
         story
     )
 
-
-# ============================================================
-# VERIFY OUTPUT
-# ============================================================
 
 def verify_output() -> None:
     """
@@ -1310,10 +1257,6 @@ def verify_output() -> None:
         f"PDF file size: {size} bytes"
     )
 
-
-# ============================================================
-# TERMINAL SUMMARY
-# ============================================================
 
 def show_summary(
     conn: sqlite3.Connection,
@@ -1369,11 +1312,6 @@ def show_summary(
         f"\nTotal distributions: "
         f"{len(groups)}"
     )
-
-
-# ============================================================
-# MAIN
-# ============================================================
 
 def main() -> None:
     """
