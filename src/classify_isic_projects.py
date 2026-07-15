@@ -11,10 +11,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-# ============================================================
-# PATHS
-# ============================================================
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 CLASSIFICATION_DB = (
@@ -27,62 +23,25 @@ ISIC_FILE = (
 
 ISIC_SHEET = "ISIC5"
 
-
-# ============================================================
-# FIELD WEIGHTS
-# ============================================================
-
-# These sum to 1.0.
-#
-# Title, description, and keywords receive the highest weight
-# because they usually describe the actual subject/domain of
-# the project more directly than generic filenames.
-
 TITLE_WEIGHT = 0.30
 DESCRIPTION_WEIGHT = 0.30
 KEYWORDS_WEIGHT = 0.20
 FILE_CONTENT_WEIGHT = 0.15
 FILE_NAMES_WEIGHT = 0.05
 
-
-# ============================================================
-# WORD/CHARACTER MODEL WEIGHTS
-# ============================================================
-
 WORD_MODEL_WEIGHT = 0.80
 CHAR_MODEL_WEIGHT = 0.20
-
-
-# ============================================================
-# SECONDARY CLASS SETTINGS
-# ============================================================
 
 MIN_SECONDARY_SCORE = 0.035
 
 # Secondary score must be at least 82% of primary score.
 SECONDARY_RATIO = 0.82
 
-
-# ============================================================
-# CONFIDENCE SETTINGS
-# ============================================================
-
 LOW_ABSOLUTE_SCORE = 0.025
 HIGH_ABSOLUTE_SCORE = 0.12
 
 LOW_RELATIVE_MARGIN = 0.08
 HIGH_RELATIVE_MARGIN = 0.25
-
-
-# ============================================================
-# GENERIC ACADEMIC WORDS
-# ============================================================
-
-# These words occur very frequently in research datasets and
-# can create false matches with N72 simply because the object
-# being classified is a research project.
-#
-# They are removed from project evidence before classification.
 
 GENERIC_ACADEMIC_WORDS = {
     "research",
@@ -131,11 +90,6 @@ GENERIC_ACADEMIC_WORDS = {
     "collecting",
 }
 
-
-# ============================================================
-# TEXT CLEANING
-# ============================================================
-
 def clean_text(value: object | None) -> str:
     """
     Normalize text and whitespace.
@@ -181,11 +135,6 @@ def remove_generic_academic_words(
     ]
 
     return " ".join(filtered_words)
-
-
-# ============================================================
-# ISIC TAXONOMY
-# ============================================================
 
 def is_division_code(
     value: object | None,
@@ -310,11 +259,6 @@ def read_isic_division_profiles() -> list[dict[str, str]]:
 
     return profiles
 
-
-# ============================================================
-# DATABASE TABLE
-# ============================================================
-
 def create_classification_table(
     conn: sqlite3.Connection,
 ) -> None:
@@ -341,11 +285,6 @@ def create_classification_table(
         )
         """
     )
-
-
-# ============================================================
-# PROJECT INPUT PARSING
-# ============================================================
 
 def extract_labeled_value(
     text: str | None,
@@ -482,11 +421,6 @@ def load_projects(
 
     return projects
 
-
-# ============================================================
-# SIMILARITY MODEL
-# ============================================================
-
 def calculate_field_similarity(
     project_texts: list[str],
     class_texts: list[str],
@@ -569,18 +503,6 @@ def build_similarity_matrix(
     class_profiles: list[dict[str, str]],
     projects: list[dict[str, object]],
 ):
-    """
-    Score each project using separate evidence fields.
-
-    Final score:
-    30% title
-    30% description
-    20% keywords
-    15% extracted file content
-     5% useful filenames
-
-    Missing fields automatically contribute zero.
-    """
 
     class_texts = [
         item["profile_text"]
@@ -665,20 +587,11 @@ def build_similarity_matrix(
 
     return final_similarity
 
-
-# ============================================================
-# RESULT SELECTION
-# ============================================================
-
 def determine_confidence(
     primary_score: float,
     secondary_score: float,
 ) -> str:
-    """
-    Determine confidence using both absolute score and
-    relative separation between first and second place.
-    """
-
+    
     if primary_score <= 0:
         return "LOW"
 
@@ -787,11 +700,6 @@ def choose_classes(
 
     return result
 
-
-# ============================================================
-# STORE RESULTS
-# ============================================================
-
 def store_result(
     conn: sqlite3.Connection,
     project: dict[str, object],
@@ -875,11 +783,6 @@ def store_result(
         ),
     )
 
-
-# ============================================================
-# VERIFICATION
-# ============================================================
-
 def verify_results(
     conn: sqlite3.Connection,
     expected_count: int,
@@ -934,11 +837,6 @@ def verify_results(
         "Relevant projects without class: "
         f"{missing_count}"
     )
-
-
-# ============================================================
-# SUMMARY
-# ============================================================
 
 def show_summary(
     conn: sqlite3.Connection,
@@ -1030,11 +928,6 @@ def show_summary(
             f" | {count:>2}"
             f" | {title}"
         )
-
-
-# ============================================================
-# MAIN
-# ============================================================
 
 def main() -> None:
     """
