@@ -6,10 +6,6 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 
-# ============================================================
-# PATHS
-# ============================================================
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 CLASSIFICATION_DB = (
@@ -22,10 +18,6 @@ OUTPUT_FILE = (
     EXPORT_DIR / "23158587-sq26-classification-results.xlsx"
 )
 
-
-# ============================================================
-# LOAD RESULTS
-# ============================================================
 
 def load_results(
     conn: sqlite3.Connection,
@@ -74,11 +66,6 @@ def load_results(
     ).fetchall()
 
     return rows
-
-
-# ============================================================
-# VERIFICATION
-# ============================================================
 
 def verify_results(
     conn: sqlite3.Connection,
@@ -163,10 +150,6 @@ def verify_results(
     )
 
 
-# ============================================================
-# CREATE XLSX
-# ============================================================
-
 def create_workbook(
     rows: list[tuple],
 ) -> Workbook:
@@ -194,9 +177,6 @@ def create_workbook(
     for row in rows:
         worksheet.append(row)
 
-    # --------------------------------------------------------
-    # HEADER STYLE
-    # --------------------------------------------------------
 
     header_fill = PatternFill(
         fill_type="solid",
@@ -219,9 +199,6 @@ def create_workbook(
             vertical="center",
         )
 
-    # --------------------------------------------------------
-    # GENERAL FORMATTING
-    # --------------------------------------------------------
 
     worksheet.freeze_panes = "A2"
 
@@ -259,10 +236,7 @@ def create_workbook(
                 wrap_text=True,
             )
 
-    # --------------------------------------------------------
-    # COLUMN WIDTHS
-    # --------------------------------------------------------
-
+  
     column_widths = {
         "A": 15,
         "B": 18,
@@ -285,11 +259,6 @@ def create_workbook(
     worksheet.row_dimensions[1].height = 24
 
     return workbook
-
-
-# ============================================================
-# VERIFY WRITTEN XLSX
-# ============================================================
 
 def verify_workbook(
     workbook: Workbook,
@@ -347,10 +316,6 @@ def verify_workbook(
     )
 
 
-# ============================================================
-# SHOW SUMMARY
-# ============================================================
-
 def show_summary(
     rows: list[tuple],
 ) -> None:
@@ -401,10 +366,6 @@ def show_summary(
         f"{len(rows)}"
     )
 
-
-# ============================================================
-# MAIN
-# ============================================================
 
 def main() -> None:
     """
